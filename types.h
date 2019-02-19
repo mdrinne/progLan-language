@@ -99,6 +99,9 @@ char *BLOCK;
 char *STATEMENTS;
 char *STATEMENT;
 char *OPTDEFS;
-
+char *JOIN;
+char *ENV;
+char *TABLE;
+char *OPTINCLUDES;
 
 #endif

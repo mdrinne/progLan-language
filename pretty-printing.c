@@ -21,10 +21,8 @@ int tabs = 0;
 void
 fixLine(Lexeme *cur)
 {
-    // printf("in fixline\n");
     while (ppline < getLineNum(cur))
     {
-        // printf("in fixline whileloop\n");
         printf("\n");
         ppline++;
     }
@@ -40,16 +38,6 @@ fixLineElse(Lexeme *cur)
         ppline++;
     }
 }
-
-
-// void
-// fixTabs()
-// {
-//     for (int i=0; i<tabs; i++)
-//     {
-//         printf("\t");
-//     }
-// }
 
 
 void
@@ -75,9 +63,7 @@ pp(Lexeme *tree)
     else if (getLexemeType(tree) == ID)
     {
         fixLine(tree);
-        // printf("left fixline\n");
         printf("%s", getLexemeID(tree));
-        // printf("printed string\n");
     }
     else if (getLexemeType(tree) == PLUS) printf("+");
     else if (getLexemeType(tree) == TIMES) printf("*");
@@ -106,8 +92,9 @@ pp(Lexeme *tree)
     else if (getLexemeType(tree) == DEFS) printDefs(tree);
     else if (getLexemeType(tree) == DEF) printDef(tree);
     else if (getLexemeType(tree) == OPTDEFS) printOptDefs(tree);
-    else if (getLexemeType(tree) == INCLUDES) printIncludes(tree);
-    else if (getLexemeType(tree) == INCLUDESTATEMENT) printInclude(tree);
+    // else if (getLexemeType(tree) == INCLUDES) printIncludes(tree);
+    // else if (getLexemeType(tree) == INCLUDESTATEMENT) printInclude(tree);
+    // else if (getLexemeType(tree) == OPTINCLUDES) printOptIncludes(tree);
     else if (getLexemeType(tree) == FUNCDEF) printFuncDef(tree);
     else if (getLexemeType(tree) == PARAMLIST) printParamList(tree);
     else if (getLexemeType(tree) == OPTPARAMLIST) printOptParamList(tree);
@@ -141,10 +128,9 @@ pp(Lexeme *tree)
 void
 printProgram(Lexeme *tree)
 {
-    // printf("in printProg\n");
-    pp(car(tree));  // INCLUDES
-    pp(car(cdr(tree)));  // OPTDEFS
-    pp(cdr(cdr(tree)));  // MAINFUNC
+    // pp(car(tree));  // INCLUDES
+    pp(car(tree));  // OPTDEFS
+    pp(cdr(tree));  // MAINFUNC
 }
 
 
@@ -173,36 +159,40 @@ printOptDefs(Lexeme *tree)
 }
 
 
-void
-printIncludes(Lexeme *tree)
-{
-    // printf("in printIncludes\n");
-    while (tree != NULL)
-    {
-        pp(car(tree));  // INCLUDE
-        tree = cdr(tree);  // INCLUDES or NULL
-    }
-}
+// void
+// printIncludes(Lexeme *tree)
+// {
+//     while (tree != NULL)
+//     {
+//         pp(car(tree));  // INCLUDE
+//         tree = cdr(tree);  // INCLUDES or NULL
+//     }
+// }
 
 
-void
-printInclude(Lexeme *tree)
-{
-    // printf("in printInclude\n");
-    fixLine(car(tree));
-    printf("#include \"");
-    pp(car(tree));  // ID (filename)
-    printf(".");
-    pp(cdr(tree));  // ID (file extension)
-    printf("\"");
-}
+// void
+// printInclude(Lexeme *tree)
+// {
+//     fixLine(car(tree));
+//     printf("#include \"");
+//     pp(car(tree));  // ID (filename)
+//     printf(".");
+//     pp(cdr(tree));  // ID (file extension)
+//     printf("\"");
+// }
+
+
+// void
+// printOptIncludes(Lexeme *tree)
+// {
+//     if (car(tree) != NULL) pp(car(tree));
+// }
 
 
 void
 printFuncDef(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("func ");
     pp(car(tree));  // ID (funcName)
     printf("(");
@@ -248,7 +238,6 @@ void
 printVarDef(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("var ");
     pp(car(tree));  // ID (varName)
     pp(cdr(tree));  // OPTINIT
@@ -335,7 +324,6 @@ void
 printFuncCall(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("call ");
     pp(car(tree));  // ID (funcName)
     printf("(");
@@ -348,7 +336,6 @@ void
 printIfStatement(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("if (");
     pp(car(tree));  // EXPR
     printf(")");
@@ -384,7 +371,6 @@ void
 printWhileLoop(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("while (");
     pp(car(tree));  // EXPR
     printf(")");
@@ -396,7 +382,6 @@ void
 printReturnStatement(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("return");
     if (car(car(tree)) != NULL)
     {
@@ -411,7 +396,6 @@ void
 printForLoop(Lexeme *tree)
 {
     fixLine(car(tree));
-    // fixTabs();
     printf("for (var ");
     pp(car(tree));  // ID
     printf("=");
@@ -458,14 +442,10 @@ void
 printBlock(Lexeme *tree)
 {
     printf("\n");
-    // fixTabs();
     printf("{\n");
     ppline += 2;
-    // tabs++;
     pp(car(tree));  // STATEMENTS
     printf("\n");
-    // tabs--;
-    // fixTabs();
     printf("}\n");
     ppline += 2;
 }
@@ -487,8 +467,6 @@ printStatement(Lexeme *tree)
 {
     if (getLexemeType(car(tree)) == EXPR || getLexemeType(car(tree)) == FUNCCALL)
     {
-        // fixLine(car(car(tree)));
-        // fixTabs();
         pp(car(tree));  // EXPR or FUNCCALL
         printf("$");
     }

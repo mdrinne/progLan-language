@@ -64,12 +64,12 @@ cons(char *type, Lexeme *left, Lexeme *right)
 Lexeme *
 program()
 {
-    Lexeme *i, *d, *m;
-    i = includes();
+    Lexeme *d, *m;
+    // i = includes();
     if (defsPending()) d = optDefs();
     else d = NULL;
     m = mainFunc();
-    return cons(PROGRAM,i,cons(GLUE,d,m));
+    return cons(PROGRAM,d,m);
 }
 
 
@@ -129,37 +129,47 @@ optDefsPending()
 }
 
 
-Lexeme *
-includes()
-{
-    Lexeme *i, *is;
-    i = includeStatement();
-    if (includesPending()) is = includes();
-    else is = NULL;
-    return cons(INCLUDES,i,is);
-}
+// Lexeme *
+// includes()
+// {
+//     Lexeme *i, *is;
+//     i = includeStatement();
+//     if (includesPending()) is = includes();
+//     else is = NULL;
+//     return cons(INCLUDES,i,is);
+// }
 
 
-int
-includesPending()
-{
-    return check(HASH);
-}
+// int
+// includesPending()
+// {
+//     return check(HASH);
+// }
 
 
-Lexeme *
-includeStatement()
-{
-    Lexeme *fn, *fex;
-    match(HASH);
-    match(INCLUDE);
-    match(QUOTE);
-    fn = match(ID);
-    match(DOT);
-    fex = match(ID);
-    match(QUOTE);
-    return cons(INCLUDESTATEMENT,fn,fex);
-}
+// Lexeme *
+// includeStatement()
+// {
+//     Lexeme *fn, *fex;
+//     match(HASH);
+//     match(INCLUDE);
+//     match(QUOTE);
+//     fn = match(ID);
+//     match(DOT);
+//     fex = match(ID);
+//     match(QUOTE);
+//     return cons(INCLUDESTATEMENT,fn,fex);
+// }
+
+
+// Lexeme *
+// optIncludes()
+// {
+//     Lexeme *i;
+//     if (includesPending()) i = includes();
+//     else i = NULL;
+//     return cons(OPTINCLUDES,i,NULL);
+// }
 
 
 Lexeme *

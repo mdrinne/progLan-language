@@ -9,6 +9,10 @@ pp :
 	gcc $(LOPTS) -c pp.c lexeme.c lexer.c types.c parser.c pretty-printing.c
 	gcc $(LOPTS) pp.c lexeme.o lexer.o types.o parser.o pretty-printing.o -o pp
 
+recognizer:
+	gcc $(LOPTS) -c recognizer.c lexer.c lexeme.c types.c parser.c
+	gcc $(LOPTS) recognizer.c lexer.o lexeme.o types.o parser.o -o recognizer
+
 test1 : pp
 	@echo Original file:
 	@cat test1.rin

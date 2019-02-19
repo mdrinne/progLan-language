@@ -95,3 +95,7 @@ char *BLOCK = "BLOCK";
 char *STATEMENTS = "STATEMENTS";
 char *STATEMENT = "STATEMENT";
 char *OPTDEFS = "OPTDEFS";
+char *JOIN = "JOIN";
+char *ENV = "ENV";
+char *TABLE = "TABLE";
+char *OPTINCLUDES = "OPTINCLUDES";

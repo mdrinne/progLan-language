@@ -103,5 +103,7 @@ char *JOIN;
 char *ENV;
 char *TABLE;
 char *OPTINCLUDES;
+char *CLOSURE;
+
 
 #endif

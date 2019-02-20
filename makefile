@@ -48,3 +48,4 @@ test3 : pp
 
 clean :
 	rm -f $(OBJS) pp
+	rm -r *.dSYM

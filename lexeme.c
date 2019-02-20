@@ -98,10 +98,26 @@ getLexemeIval(Lexeme *n)
 }
 
 
+Lexeme *
+minusLexemeIval(Lexeme *n, int x)
+{
+    Lexeme *new = newLexemeInt(0-getLexemeIval(n),getLineNum(n));
+    return new;
+}
+
+
 double
 getLexemeRval(Lexeme *n)
 {
     return n->rval;
+}
+
+
+Lexeme *
+minusLexemeRval(Lexeme *n, double x)
+{
+    Lexeme *new = newLexemeReal(0-getLexemeRval(n),getLineNum(n));
+    return new;
 }
 
 

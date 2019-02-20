@@ -48,6 +48,7 @@ oper : PLUS
      | LESSTHAN
      | LESSTHANOREQUAL
      | MOD
+     | EQUALEQUAL
      | NOT EQUALS
 
 expr : unary

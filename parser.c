@@ -66,8 +66,7 @@ program()
 {
     Lexeme *d, *m;
     // i = includes();
-    if (defsPending()) d = optDefs();
-    else d = NULL;
+    d = optDefs();
     m = mainFunc();
     return cons(PROGRAM,d,m);
 }
@@ -95,11 +94,7 @@ Lexeme *
 def()
 {
     Lexeme *d;
-    if (varDefPending())
-    {
-        d = varDef();
-        match(MONEY);
-    }
+    if (varDefPending()) d = varDef();
     else d = funcDef();
     return cons(DEF,d,NULL);
 }
@@ -230,7 +225,7 @@ Lexeme *
 mainFunc()
 {
     Lexeme *op, *b;
-    match(MAIN);
+    match(MAINFUNC);
     match(OPAREN);
     op = optParamList();
     match(CPAREN);
@@ -276,11 +271,11 @@ Lexeme *
 unary()
 {
     Lexeme *u;
-    if (check(MINUS))
-    {
-        u = uminus();
-    }
-    else if (check(INTEGER)) u = match(INTEGER);
+    // if (check(MINUS))
+    // {
+    //     u = uminus();
+    // }
+    if (check(INTEGER)) u = match(INTEGER);
     else if (check(REAL)) u = match(REAL);
     else if (check(STRING)) u = match(STRING);
     else u = match(ID);
@@ -291,18 +286,18 @@ unary()
 int
 unaryPending()
 {
-    return check(MINUS) || check(INTEGER) || check(REAL) || check(STRING) || check(ID);
+    return check(INTEGER) || check(REAL) || check(STRING) || check(ID);
 }
 
 
-Lexeme *
-uminus()
-{
-    Lexeme *u;
-    match(MINUS);
-    u = unary();
-    return cons(UMINUS,u,NULL);
-}
+// Lexeme *
+// uminus()
+// {
+//     Lexeme *u;
+//     match(MINUS);
+//     u = unary();
+//     return cons(UMINUS,u,NULL);
+// }
 
 
 Lexeme *

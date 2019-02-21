@@ -1,9 +1,18 @@
 LOPTS = -Wall -Wextra -g -std=c99
 OBJS = *.o *.pp.*
 
-make : pp
+make : eval
+	./eval test2.rin
 
 run : test1
+
+scanner :
+	gcc $(LOPTS) -c scanner.c lexer.c lexeme.c types.c
+	gcc $(LOPTS) scanner.c lexer.o lexeme.o types.o -o scanner
+
+eval :
+	gcc $(LOPTS) -c eval.c lexeme.c lexer.c types.c parser.c evaluator.c environment.c pretty-printing.c
+	gcc $(LOPTS) eval.c lexeme.o lexer.o types.o parser.o evaluator.o environment.o pretty-printing.o -o eval
 
 pp :
 	gcc $(LOPTS) -c pp.c lexeme.c lexer.c types.c parser.c pretty-printing.c
@@ -47,5 +56,4 @@ test3 : pp
 	diff -s -q test3.pp.1 test3.pp.2
 
 clean :
-	rm -f $(OBJS) pp
-	rm -r *.dSYM
+	rm -f $(OBJS) pp eval scanner

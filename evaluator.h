@@ -12,7 +12,8 @@
 #include "lexeme.h"
 
 
-char  *concatStrings(Lexeme *n, Lexeme *m);
+char   *concatStrings(Lexeme *n, Lexeme *m);
+char   *multString(Lexeme *n, int x);
 
 
 Lexeme *eval(Lexeme *tree, Lexeme *env);

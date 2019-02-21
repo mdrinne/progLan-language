@@ -172,7 +172,7 @@ lexVarOrKeyword()
     if (strcmp(buffer, "if") == 0) return newLexeme(IF,line);
     else if (strcmp(buffer, "else") == 0) return newLexeme(ELSE,line);
     else if (strcmp(buffer, "while") == 0) return newLexeme(WHILE,line);
-    else if (strcmp(buffer, "main") == 0) return newLexeme(MAIN,line);
+    else if (strcmp(buffer, "main") == 0) return newLexeme(MAINFUNC,line);
     // else if (strcmp(buffer, "include") == 0) return newLexeme(INCLUDE,line);
     else if (strcmp(buffer, "func") == 0) return newLexeme(FUNCTION,line);
     else if (strcmp(buffer, "return") == 0) return newLexeme(RETURN,line);

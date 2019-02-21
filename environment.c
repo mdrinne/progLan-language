@@ -8,6 +8,7 @@
 #include "lexeme.h"
 #include "types.h"
 #include "environment.h"
+#include "parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -111,6 +112,7 @@ displayEnv(Lexeme *env)
             if (getLexemeType(car(vals)) == INTEGER) printf("%d\n",getLexemeIval(car(vals)));
             else if (getLexemeType(car(vals)) == REAL) printf("%lf\n",getLexemeRval(car(vals)));
             else if (getLexemeType(car(vals)) == STRING) printf("%s\n",getLexemeSval(car(vals)));
+            else if (getLexemeType(car(vals)) == CLOSURE) printf("function\n");
             vars = cdr(vars);
             vals = cdr(vals);
         }

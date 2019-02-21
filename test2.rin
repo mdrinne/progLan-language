@@ -1,0 +1,12 @@
+var y = 10.5 * 2 $
+func test()
+{
+    return 12$
+}
+
+main ()
+{
+    var x = 10$
+    x = x + 1$
+    return$
+}

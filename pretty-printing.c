@@ -121,7 +121,7 @@ pp(Lexeme *tree)
     else if (getLexemeType(tree) == BLOCK) printBlock(tree);
     else if (getLexemeType(tree) == STATEMENTS) printStatements(tree);
     else if (getLexemeType(tree) == STATEMENT) printStatement(tree);
-    else printf("not listed TYPE\n");
+    else if (tree != NULL) printf("not listed TYPE\n");
 }
 
 
@@ -129,7 +129,9 @@ void
 printProgram(Lexeme *tree)
 {
     // pp(car(tree));  // INCLUDES
+    // printf("optdefs\n");
     pp(car(tree));  // OPTDEFS
+    // printf("main\n");
     pp(cdr(tree));  // MAINFUNC
 }
 
@@ -155,7 +157,7 @@ printDef(Lexeme *tree)
 void
 printOptDefs(Lexeme *tree)
 {
-    if (car(tree) != NULL) pp(car(tree));
+    if (car(tree) != NULL)  pp(car(tree));
 }
 
 

@@ -1,10 +1,24 @@
-var y = 10.5 * 2 $
+var z = 0 - 2$
+var y = 5 + z$
+var a = 'help' > 'held'$
+var b = 6 >= 8$
+var c = 4 < 2$
+var d = 7 <=7$
+var e = 'help' < 'held'$
+var f = 'hello' == 'hello'$
+var g = 1 != 0$
+var h = 19 % 10$
+var i = y++$
+var k = y--$
+var l = a || e$
+var m = a && e$
+
 func test()
 {
     return 12$
 }
 
-main ()
+main
 {
     var x = 10$
     x = x + 1$

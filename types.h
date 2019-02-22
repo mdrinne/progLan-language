@@ -104,6 +104,8 @@ char *ENV;
 char *TABLE;
 char *OPTINCLUDES;
 char *CLOSURE;
+char *BOOL;
+char *RETURNED;
 
 
 #endif

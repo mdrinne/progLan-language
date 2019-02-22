@@ -23,7 +23,7 @@ parameterList : VAR ID
 optParamList : parameterList
 	     | EMPTY
 
-mainFunc : MAIN OPAREN optParamList CPAREN block
+mainFunc : MAIN block
 
 varDef : VAR ID optInit MONEY
 

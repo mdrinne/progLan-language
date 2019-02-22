@@ -25,7 +25,7 @@ Lexeme *evalFuncDef(Lexeme *tree, Lexeme *env);
 Lexeme *evalVarDef(Lexeme *tree, Lexeme *env);
 Lexeme *evalOptInit(Lexeme *tree, Lexeme *env);
 Lexeme *evalUnary(Lexeme *tree, Lexeme *env);
-Lexeme *evalUminus(Lexeme *tree, Lexeme *env);
+// Lexeme *evalUminus(Lexeme *tree, Lexeme *env);
 Lexeme *evalOptExpr(Lexeme *tree, Lexeme *env);
 Lexeme *evalExpr(Lexeme *tree, Lexeme *env);
 Lexeme *evalOper(Lexeme *tree, Lexeme *env);
@@ -38,11 +38,19 @@ Lexeme *evalGreaterThan(Lexeme *tree, Lexeme *env);
 Lexeme *evalGreaterThanOrEqual(Lexeme *tree, Lexeme *env);
 Lexeme *evalLessThan(Lexeme *tree, Lexeme *env);
 Lexeme *evalLessThanOrEqual(Lexeme *tree, Lexeme *env);
-Lexeme *evalMod(Lexeme *tree, Lexeme *env);
 Lexeme *evalEqualEqual(Lexeme *tree, Lexeme *env);
 Lexeme *evalNotEqual(Lexeme *tree, Lexeme *env);
+Lexeme *evalMod(Lexeme *tree, Lexeme *env);
+Lexeme *evalOrOr(Lexeme *tree, Lexeme *env);
+Lexeme *evalAndAnd(Lexeme *tree, Lexeme *env);
 Lexeme *evalDoubleSelfOp(Lexeme *tree, Lexeme *env);
-
+Lexeme *evalPlusPlus(Lexeme *tree, Lexeme *env);
+Lexeme *evalMinusMinus(Lexeme *tree, Lexeme *env);
+Lexeme *evalMainFunc(Lexeme *tree, Lexeme *env);
+Lexeme *evalBlock(Lexeme *tree, Lexeme *env);
+Lexeme *evalStatements(Lexeme *tree, Lexeme *env);
+Lexeme *evalStatement(Lexeme *tree, Lexeme *env);
+Lexeme *evalReturnStatement(Lexeme *tree, Lexeme *env);
 Lexeme *evalFuncCall(Lexeme *tree, Lexeme *env);
 
 #endif

@@ -224,13 +224,13 @@ optParamList()
 Lexeme *
 mainFunc()
 {
-    Lexeme *op, *b;
+    Lexeme *b;
     match(MAINFUNC);
-    match(OPAREN);
-    op = optParamList();
-    match(CPAREN);
+    // match(OPAREN);
+    // op = optParamList();
+    // match(CPAREN);
     b = block();
-    return cons(MAINFUNC,op,b);
+    return cons(MAINFUNC,b,NULL);
 }
 
 

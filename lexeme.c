@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <stdbool.h>
 
 
 struct lexeme
@@ -19,6 +20,7 @@ struct lexeme
     double  rval;
     char   *sval;
     char   *ID;
+    bool    tf;
     int     lineNum;
     Lexeme *left;
     Lexeme *right;
@@ -84,6 +86,17 @@ newLexemeID(char *x, int line)
 }
 
 
+Lexeme *
+newLexemeTf(bool x)
+{
+    Lexeme *new = malloc(sizeof(Lexeme));
+    assert(new != 0);
+    new->type = BOOL;
+    new->tf   = x;
+    return new;
+}
+
+
 char *
 getLexemeType(Lexeme *n)
 {
@@ -139,6 +152,13 @@ int
 getLineNum(Lexeme *n)
 {
     return n->lineNum;
+}
+
+
+bool
+getLexemeTf(Lexeme *n)
+{
+    return n->tf;
 }
 
 

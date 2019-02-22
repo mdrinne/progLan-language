@@ -34,7 +34,7 @@ lookup(Lexeme *id, Lexeme *env)
         vals = cdr(car(env));
         while (vars != NULL)
         {
-            if (getLexemeID(id) == getLexemeID(car(vars)))
+            if (strcmp(getLexemeID(id),getLexemeID(car(vars))) == 0)
             {
                 return car(vals);
             }
@@ -43,7 +43,7 @@ lookup(Lexeme *id, Lexeme *env)
         }
         env = cdr(env);
     }
-    printf("Variable %s undefined\n",getLexemeID(id));
+    printf("VARIABLE %s UNDEFINED\n",getLexemeID(id));
     exit(1);
 }
 
@@ -59,7 +59,7 @@ update(Lexeme *env, Lexeme *id, Lexeme *val)
         vals = cdr(car(env));
         while (vars != NULL)
         {
-            if (getLexemeID(id) == getLexemeID(car(vars)))
+            if (strcmp(getLexemeID(id),getLexemeID(car(vars))) == 0)
             {
                 set_car(vals, val);
                 return val;
@@ -69,6 +69,7 @@ update(Lexeme *env, Lexeme *id, Lexeme *val)
         }
         env = cdr(env);
     }
+    printf("VAR %s IS UNDEFINED\n",getLexemeID(id));
     return NULL;
 }
 
@@ -113,6 +114,8 @@ displayEnv(Lexeme *env)
             else if (getLexemeType(car(vals)) == REAL) printf("%lf\n",getLexemeRval(car(vals)));
             else if (getLexemeType(car(vals)) == STRING) printf("%s\n",getLexemeSval(car(vals)));
             else if (getLexemeType(car(vals)) == CLOSURE) printf("function\n");
+            else if (getLexemeType(car(vals)) == BOOL && getLexemeTf(car(vals)) == true) printf("true\n");
+            else if (getLexemeType(car(vals)) == BOOL && getLexemeTf(car(vals)) == false) printf("false\n");
             vars = cdr(vars);
             vals = cdr(vals);
         }

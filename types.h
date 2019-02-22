@@ -106,6 +106,7 @@ char *OPTINCLUDES;
 char *CLOSURE;
 char *BOOL;
 char *RETURNED;
+char *OCLOSURE;
 
 
 #endif

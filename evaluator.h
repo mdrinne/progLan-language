@@ -14,6 +14,7 @@
 
 char   *concatStrings(Lexeme *n, Lexeme *m);
 char   *multString(Lexeme *n, int x);
+int     isBuiltIn(Lexeme *n);
 
 
 Lexeme *eval(Lexeme *tree, Lexeme *env);
@@ -52,5 +53,12 @@ Lexeme *evalStatements(Lexeme *tree, Lexeme *env);
 Lexeme *evalStatement(Lexeme *tree, Lexeme *env);
 Lexeme *evalReturnStatement(Lexeme *tree, Lexeme *env);
 Lexeme *evalFuncCall(Lexeme *tree, Lexeme *env);
+Lexeme *evalOptArgList(Lexeme *tree, Lexeme *env);
+Lexeme *evalArgList(Lexeme *tree, Lexeme *env);
+
+
+Lexeme *evalBuiltIn(Lexeme *closure, Lexeme *args);
+Lexeme *evalConstructor(Lexeme *closure, Lexeme *env);
+
 
 #endif

@@ -208,7 +208,7 @@ evalExpr(Lexeme *tree, Lexeme *env)
     if (car(cdr(tree)) == NULL)
     {
         if (getLexemeType(car(tree)) == UNARY) return evalUnary(car(tree),env);
-        // else return evalFuncCall(car(tree),env);
+        else return evalFuncCall(car(tree),env);
     }
     else if (getLexemeType(car(cdr(tree))) == OPER)
     {
@@ -775,7 +775,10 @@ Lexeme *
 evalMainFunc(Lexeme *tree, Lexeme *env)
 {
     Lexeme *mainEnv = extend(env,NULL,NULL);
-    return eval(car(tree),mainEnv);
+    // return eval(car(tree),mainEnv);
+    Lexeme *main = eval(car(tree),mainEnv);
+    displayEnv(mainEnv);
+    return main;
 }
 
 
@@ -817,4 +820,34 @@ evalReturnStatement(Lexeme *tree, Lexeme *env)
     // printf("in evalReturnStatement\n");
     Lexeme *returned = cons(RETURNED,eval(car(tree),env),NULL);
     return returned;
+}
+
+
+Lexeme *
+evalFuncCall(Lexeme *tree, Lexeme *env)
+{
+    Lexeme *closure = eval(car(tree),env);
+    Lexeme *optArgs = evalOptArgList(cdr(tree),env);
+    // if (isBuiltIn(closure)) return evalBuiltIn(closure,optArgs);
+    // else if (getLexemeType(closure) == OCLOSURE) evalConstructor(closure,env);
+    Lexeme *staticEnv = car(closure);
+    Lexeme *params = car(car(cdr(cdr(closure))));
+    Lexeme *localEnv = extend(staticEnv,params,optArgs);
+    Lexeme *body = cdr(cdr(cdr(closure)));
+    Lexeme *result = eval(body,localEnv);
+    return car(result);
+}
+
+Lexeme *
+evalOptArgList(Lexeme *tree, Lexeme *env)
+{
+    if (car(tree) == NULL) return NULL;
+    else return evalArgList(car(tree),env);
+}
+
+
+Lexeme *
+evalArgList(Lexeme *tree, Lexeme *env)
+{
+    return cons(GLUE,eval(car(tree),env),eval(cdr(tree),env));
 }

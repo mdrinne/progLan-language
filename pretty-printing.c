@@ -107,27 +107,25 @@ pp(Lexeme *tree)
     // else if (getLexemeType(tree) == INCLUDESTATEMENT) printInclude(tree);
     // else if (getLexemeType(tree) == OPTINCLUDES) printOptIncludes(tree);
             else if (getLexemeType(tree) == FUNCDEF) printFuncDef(tree);
-    else if (getLexemeType(tree) == PARAMLIST) printParamList(tree);
-    else if (getLexemeType(tree) == OPTPARAMLIST) printOptParamList(tree);
+            else if (getLexemeType(tree) == PARAMLIST) printParamList(tree);
+            else if (getLexemeType(tree) == OPTPARAMLIST) printOptParamList(tree);
             else if (getLexemeType(tree) == MAINFUNC) printMainFunc(tree);
             else if (getLexemeType(tree) == VARDEF) printVarDef(tree);
             else if (getLexemeType(tree) == OPTINIT) printOptInit(tree);
             else if (getLexemeType(tree) == UNARY) printUnary(tree);
             else if (getLexemeType(tree) == UMINUS) printUminus(tree);
-    else if (getLexemeType(tree) == OPER) printOper(tree);
+            else if (getLexemeType(tree) == OPER) printOper(tree);
             else if (getLexemeType(tree) == EXPR) printExpr(tree);
             else if (getLexemeType(tree) == OPTEXPR) printOptExpr(tree);
-    else if (getLexemeType(tree) == ARGLIST) printArgList(tree);
-    else if (getLexemeType(tree) == OPTARGLIST) printOptArgList(tree);
-    else if (getLexemeType(tree) == FUNCCALL) printFuncCall(tree);
-    else if (getLexemeType(tree) == IFSTATEMENT) printIfStatement(tree);
-    else if (getLexemeType(tree) == ELSESTATEMENT) printElseStatement(tree);
-    else if (getLexemeType(tree) == OPTELSE) printOptElse(tree);
-    else if (getLexemeType(tree) == WHILELOOP) printWhileLoop(tree);
+            else if (getLexemeType(tree) == ARGLIST) printArgList(tree);
+            else if (getLexemeType(tree) == OPTARGLIST) printOptArgList(tree);
+            else if (getLexemeType(tree) == FUNCCALL) printFuncCall(tree);
+            else if (getLexemeType(tree) == IFSTATEMENT) printIfStatement(tree);
+            else if (getLexemeType(tree) == ELSESTATEMENT) printElseStatement(tree);
+            else if (getLexemeType(tree) == OPTELSE) printOptElse(tree);
+            else if (getLexemeType(tree) == WHILELOOP) printWhileLoop(tree);
             else if (getLexemeType(tree) == RETURNSTATEMENT) printReturnStatement(tree);
     else if (getLexemeType(tree) == FORLOOP) printForLoop(tree);
-    else if (getLexemeType(tree) == CHECKOPER) printCheckOper(tree);
-    else if (getLexemeType(tree) == SELFOP) printSelfOp(tree);
             else if (getLexemeType(tree) == DOUBLESELFOP) printDoubleSelfOp(tree);
             else if (getLexemeType(tree) == BLOCK) printBlock(tree);
             else if (getLexemeType(tree) == STATEMENTS) printStatements(tree);
@@ -321,6 +319,7 @@ printArgList(Lexeme *tree)
     while (tree != NULL)
     {
         pp(car(tree));  // EXPR
+        if (cdr(tree) != NULL) printf(", ");
         tree = cdr(tree);  // ARGLIST
     }
 }
@@ -407,38 +406,14 @@ void
 printForLoop(Lexeme *tree)
 {
     fixLine(car(tree));
-    printf("for (var ");
-    pp(car(tree));  // ID
-    printf("=");
-    pp(car(cdr(tree)));  // INTEGER
+    printf("for (");
+    pp(car(tree)); 
+    printf("; ");
+    pp(car(cdr(tree)));
     printf("; ");
     pp(car(cdr(cdr(tree))));  // ID
-    pp(car(cdr(cdr(cdr(tree)))));  // CHECKOPER
-    pp(car(cdr(cdr(cdr(cdr(tree))))));  // INTEGER
-    printf("; ");
-    pp(car(cdr(cdr(cdr(cdr(cdr(tree)))))));  // ID
-    pp(car(cdr(cdr(cdr(cdr(cdr(cdr(tree))))))));  // SELFOP
     printf(")");
-    pp(cdr(cdr(cdr(cdr(cdr(cdr(cdr(tree))))))));  // BLOCK
-}
-
-
-void
-printCheckOper(Lexeme *tree)
-{
-    pp(car(tree));  // GREATETHAN or GREATERTHANOREQUAL or LESSTHAN or LESSTHANOREQUAL
-}
-
-
-void
-printSelfOp(Lexeme *tree)
-{
-    if (getLexemeType(car(tree)) == DOUBLESELFOP) pp(car(tree));  // DOUBLESELFOP
-    else
-    {
-        pp(car(tree));  // PLUSEQUALS or MINUSEQUALS ...
-        pp(cdr(tree));  // INTEGER
-    }
+    pp(cdr(cdr(cdr(tree))));  // BLOCK
 }
 
 

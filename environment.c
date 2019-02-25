@@ -116,7 +116,9 @@ displayEnv(Lexeme *env)
             else if (getLexemeType(car(vals)) == CLOSURE) printf("function\n");
             else if (getLexemeType(car(vals)) == BOOL && getLexemeTf(car(vals)) == true) printf("true\n");
             else if (getLexemeType(car(vals)) == BOOL && getLexemeTf(car(vals)) == false) printf("false\n");
-            else printf("%s\n",getLexemeType(vals));
+            else if (getLexemeType(car(vals)) == ARRAY) printf("array\n");
+            else if (getLexemeType(car(vals)) == FP) printf("file pointer\n");
+            else printf("%s\n",getLexemeType(car(vals)));
             vars = cdr(vars);
             vals = cdr(vals);
         }

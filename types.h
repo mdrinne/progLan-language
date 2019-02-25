@@ -107,6 +107,8 @@ char *CLOSURE;
 char *BOOL;
 char *RETURNED;
 char *OCLOSURE;
+char *ARRAY;
+char *FP;
 
 
 #endif

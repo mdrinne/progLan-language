@@ -15,15 +15,18 @@
 
 struct lexeme
 {
-    char   *type;
-    int     ival;
-    double  rval;
-    char   *sval;
-    char   *ID;
-    bool    tf;
-    int     lineNum;
-    Lexeme *left;
-    Lexeme *right;
+    char    *type;
+    int      ival;
+    double   rval;
+    char    *sval;
+    char    *ID;
+    bool     tf;
+    Lexeme **aval;
+    FILE    *fval;
+    int      arrSize;
+    int      lineNum;
+    Lexeme  *left;
+    Lexeme  *right;
 } ;
 
 
@@ -93,6 +96,29 @@ newLexemeTf(bool x)
     assert(new != 0);
     new->type = BOOL;
     new->tf   = x;
+    return new;
+}
+
+
+Lexeme *
+newLexemeArray(int x)
+{
+    Lexeme *new = malloc(sizeof(Lexeme));
+    assert(new != 0);
+    new->type = ARRAY;
+    new->aval = malloc(sizeof(Lexeme *) * x);
+    new->arrSize = x;
+    return new;
+}
+
+
+Lexeme *
+newLexemeFP(char *x)
+{
+    Lexeme *new = malloc(sizeof(Lexeme));
+    assert(new != 0);
+    new->type = FP;
+    new->fval = fopen(x,"r");
     return new;
 }
 
@@ -189,4 +215,34 @@ set_cdr(Lexeme *parent, Lexeme *child)
 {
     parent->right = child;
     return;
+}
+
+
+void
+setArrayVal(Lexeme *a, Lexeme *i, Lexeme *val)
+{
+    Lexeme **arr = a->aval;
+    arr[getLexemeIval(i)] = val;
+}
+
+
+Lexeme *
+getArrayVal(Lexeme *a, Lexeme *i)
+{
+    Lexeme **arr = a->aval;
+    return arr[getLexemeIval(i)];
+}
+
+
+int
+getArraySize(Lexeme *a)
+{
+    return a->arrSize;
+}
+
+
+FILE *
+getLexemeFP(Lexeme *n)
+{
+    return n->fval;
 }

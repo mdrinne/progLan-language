@@ -22,6 +22,8 @@ Lexeme *newLexemeReal(double x, int line);
 Lexeme *newLexemeString(char *x, int line);
 Lexeme *newLexemeID(char *x, int line);
 Lexeme *newLexemeTf(bool x);
+Lexeme *newLexemeArray(int x);
+Lexeme *newLexemeFP(char *x);
 char   *getLexemeType(Lexeme *n);
 int     getLexemeIval(Lexeme *n);
 Lexeme *minusLexemeIval(Lexeme *n, int x);
@@ -35,5 +37,9 @@ Lexeme *car(Lexeme *l); /* gets lchild */
 Lexeme *cdr(Lexeme *l); /* gets rchild */
 void    set_car(Lexeme *parent, Lexeme *child);
 void    set_cdr(Lexeme *parent, Lexeme *child);
+void    setArrayVal(Lexeme *a, Lexeme *i, Lexeme *val);
+Lexeme *getArrayVal(Lexeme *a, Lexeme *i);
+int     getArraySize(Lexeme *a);
+FILE   *getLexemeFP(Lexeme *n);
 
 #endif

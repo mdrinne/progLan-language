@@ -18,10 +18,44 @@ func test()
     return 12$
 }
 
+func test2(var def, var ghi)
+{
+    return def + ghi$
+}
+
 main
 {
     var x = 10$
     x = x + 1$
     var blah = call test()$
+    if (blah == 11)
+    {
+        blah--$
+    }
+    else if (blah == 12)
+    {
+        blah++$
+    }
+    while (blah < 15)
+    {
+        blah++$
+    }
+
+    for (var abc=0; abc < 5; abc++)
+    {
+        x++$
+    }
+
+    var jsdkfh = call test2(1,1)$
+
+    var arr = call newArray(5)$
+    call setArray(arr,0,2)$
+    var arrVal = call getArray(arr,0)$
+    var argc = call getArgCount()$
+    var argument0 = call getArg(0)$
+    var fp = call openFileForReading('readTest.txt')$
+    var readInt = call readInt(fp)$
+    var endof = call eof(fp)$
+    
     return$
 }

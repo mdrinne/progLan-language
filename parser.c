@@ -94,7 +94,11 @@ Lexeme *
 def()
 {
     Lexeme *d;
-    if (varDefPending()) d = varDef();
+    if (varDefPending())
+    {
+        d = varDef();
+        match(MONEY);
+    }
     else d = funcDef();
     return cons(DEF,d,NULL);
 }
@@ -241,7 +245,7 @@ varDef()
     match(VAR);
     vn = match(ID);
     oi = optInit();
-    match(MONEY);
+    // match(MONEY);
     return cons(VARDEF,vn,oi);
 }
 
@@ -532,23 +536,17 @@ returnStatementPending()
 Lexeme *
 forLoop()
 {
-    Lexeme *i1, *int1, *i2, *co, *int2, *i3, *so, *b;
+    Lexeme *vd, *expr1, *expr2, *b;
     match(FOR);
     match(OPAREN);
-    match(VAR);
-    i1 = match(ID);
-    match(ASSIGN);
-    int1 = match(INTEGER);
+    vd = varDef();
     match(SEMI);
-    i2 = match(ID);
-    co = checkOper();
-    int2 = match(INTEGER);
+    expr1 = expr();
     match(SEMI);
-    i3 = match(ID);
-    so = selfOp();
+    expr2 = expr();
     match(CPAREN);
     b = block();
-    return cons(FORLOOP,i1,cons(GLUE,int1,cons(GLUE,i2,cons(GLUE,co,cons(GLUE,int2,cons(GLUE,i3,cons(GLUE,so,b)))))));
+    return cons(FORLOOP,vd,cons(GLUE,expr1,cons(GLUE,expr2,b)));
 }
 
 
@@ -659,7 +657,11 @@ statement()
        s = expr();
         match(MONEY);
     }
-    else if (varDefPending()) s = varDef();
+    else if (varDefPending())
+    {
+        s = varDef();
+        match(MONEY);
+    }
     else if (funcDefPending()) s = funcDef();
     else if (ifStatementPending()) s = ifStatement();
     else if (whileLoopPending()) s = whileLoop();

@@ -17,7 +17,7 @@
 
 
 int 
-main(int argc, char const *argv[])
+main(int argc, char *argv[])
 {
     FILE *fp = fopen(argv[argc-1], "r");
     getFile(fp);
@@ -26,8 +26,9 @@ main(int argc, char const *argv[])
     match(END_OF_FILE);
     Lexeme *env = newEnv();
     pp(tree);
+    setCLvars(argc,argv);
     eval(tree,env);
-    displayEnv(env);
+    // displayEnv(env);
     fclose(fp);
     return 0;
 }

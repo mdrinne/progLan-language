@@ -10,9 +10,23 @@
 #include "lexeme.h"
 #include "types.h"
 #include "parser.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
+int countCL;
+char **argsCL;
+
+
+void
+setCLvars(int count, char **args)
+{
+    countCL = count;
+    argsCL = args;
+    return;
+}
 
 
 char *
@@ -79,13 +93,30 @@ multString(Lexeme *n, int x)
 }
 
 
+int
+isBuiltIn(char *n)
+{
+    if (strcmp(n,"newArray") == 0) return 1;
+    else if (strcmp(n,"setArray") == 0) return 1;
+    else if (strcmp(n,"getArray") == 0) return 1;
+    else if (strcmp(n,"getArgCount") == 0) return 1;
+    else if (strcmp(n,"getArg") == 0) return 1;
+    else if (strcmp(n,"openFileForReading") == 0) return 1;
+    else if (strcmp(n,"readInt") == 0) return 1;
+    else if (strcmp(n,"eof") == 0) return 1;
+    else return 0;
+}
+
+
 Lexeme *
 eval(Lexeme *tree, Lexeme *env)
 {
     if (getLexemeType(tree) == INTEGER) return tree;
     else if (getLexemeType(tree) == REAL) return tree;
     else if (getLexemeType(tree) == STRING) return tree;
+    else if (getLexemeType(tree) == ARRAY) return tree;
     else if (getLexemeType(tree) == ID) return lookup(tree,env);
+    else if (getLexemeType(tree) == FP) return tree;
     else if (getLexemeType(tree) == PROGRAM) return evalProgram(tree,env);
     else if (getLexemeType(tree) == OPTDEFS) return evalOptDefs(tree,env);
     else if (getLexemeType(tree) == DEFS) return evalDefs(tree,env);
@@ -105,6 +136,11 @@ eval(Lexeme *tree, Lexeme *env)
     else if (getLexemeType(tree) == STATEMENT) return evalStatement(tree,env);
     else if (getLexemeType(tree) == RETURNSTATEMENT) return evalReturnStatement(tree,env);
     else if (getLexemeType(tree) == FUNCCALL) return evalFuncCall(tree,env);
+    else if (getLexemeType(tree) == IFSTATEMENT) return evalIfStatement(tree,env);
+    else if (getLexemeType(tree) == OPTELSE) return evalOptElse(tree,env);
+    else if (getLexemeType(tree) == ELSESTATEMENT) return evalElseStatement(tree,env);
+    else if (getLexemeType(tree) == WHILELOOP) return evalWhileLoop(tree,env);
+    else if (getLexemeType(tree) == FORLOOP) return evalForLoop(tree,env);
     else return NULL;
 }
 
@@ -223,8 +259,10 @@ evalExpr(Lexeme *tree, Lexeme *env)
     }
     else
     {
+        Lexeme *id = car(car(tree));
         set_car(car(car(cdr(tree))),car(tree));
-        return evalDoubleSelfOp(car(cdr(tree)),env);
+        Lexeme *result = evalDoubleSelfOp(car(cdr(tree)),env);
+        return update(env,id,result);
     }
     return NULL;
 }
@@ -413,7 +451,13 @@ evalAssign(Lexeme *tree, Lexeme *env)
     // printf("evalAssign car(car(tree)) ID: %s\n", getLexemeID(car(car(tree))));
     // Lexeme *left = eval(car(car(tree)),env);
     // printf("left TYPE:%s\n",getLexemeType(left));
-    Lexeme *right = eval(cdr(tree),env);
+    // printf("%s\n",getLexemeType(cdr(tree)));
+    Lexeme *right;
+    if (getLexemeType(cdr(tree)) == FUNCCALL)
+    {
+        right = evalFuncCall(cdr(tree),env);
+    }
+    else right = eval(cdr(tree),env);
     return update(env,car(car(tree)),right);
 }
 
@@ -779,6 +823,7 @@ evalMainFunc(Lexeme *tree, Lexeme *env)
     Lexeme *main = eval(car(tree),mainEnv);
     displayEnv(mainEnv);
     return main;
+    // return eval(car(tree),mainEnv);
 }
 
 
@@ -792,13 +837,14 @@ evalBlock(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalStatements(Lexeme *tree, Lexeme *env)
 {
+    Lexeme *result;
     while (tree != NULL)
     {
-        Lexeme *result = eval(car(tree),env);
-        if (getLexemeType(result) == RETURNED) break;
+        result = eval(car(tree),env);
+        if (getLexemeType(result) == RETURNED) return eval(car(tree),env);
         tree = cdr(tree);
     }
-    return eval(car(tree),env);
+    return result;
 }
 
 
@@ -810,6 +856,7 @@ evalStatement(Lexeme *tree, Lexeme *env)
     // Lexeme *result = eval(car(tree),env);
     // displayEnv(env);
     // return result;
+    // printf("evaluating %s\n", getLexemeType(car(tree)));
     return eval(car(tree),env);
 }
 
@@ -826,16 +873,30 @@ evalReturnStatement(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalFuncCall(Lexeme *tree, Lexeme *env)
 {
+    // printf("%s\n",getLexemeType(tree));
+    // printf("%s\n",getLexemeID(car(tree)));
+    if (isBuiltIn(getLexemeID(car(tree))))
+    {
+        // printf("func is built in\n");
+        Lexeme *optArgs = evalOptArgList(cdr(tree),env);
+        return evalBuiltIn(car(tree),optArgs);
+    }
     Lexeme *closure = eval(car(tree),env);
     Lexeme *optArgs = evalOptArgList(cdr(tree),env);
-    // if (isBuiltIn(closure)) return evalBuiltIn(closure,optArgs);
+    // if (isBuiltIn(closure))
+    // {
+    //     printf("func is built in\n");
+    //     return evalBuiltIn(closure,optArgs);
+    // }
     // else if (getLexemeType(closure) == OCLOSURE) evalConstructor(closure,env);
     Lexeme *staticEnv = car(closure);
     Lexeme *params = car(car(cdr(cdr(closure))));
     Lexeme *localEnv = extend(staticEnv,params,optArgs);
+    // displayEnv(localEnv);
     Lexeme *body = cdr(cdr(cdr(closure)));
     Lexeme *result = eval(body,localEnv);
-    return car(result);
+    if (getLexemeType(result) == RETURNED) return car(result);
+    else return result;
 }
 
 Lexeme *
@@ -849,5 +910,235 @@ evalOptArgList(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalArgList(Lexeme *tree, Lexeme *env)
 {
-    return cons(GLUE,eval(car(tree),env),eval(cdr(tree),env));
+    if (cdr(tree) != NULL) return cons(GLUE,eval(car(tree),env),evalArgList(cdr(tree),env));
+    else return cons(GLUE,eval(car(tree),env),NULL);
+}
+
+
+Lexeme *
+evalIfStatement(Lexeme *tree, Lexeme *env)
+{
+    Lexeme *ifEnv = extend(env,NULL,NULL);
+    Lexeme *tf = eval(car(tree),ifEnv);
+    if (getLexemeTf(tf) == true)
+    {
+        return eval(car(cdr(tree)),env);
+    }
+    return eval(cdr(cdr(tree)),env);
+}
+
+
+Lexeme *
+evalOptElse(Lexeme *tree, Lexeme *env)
+{
+    if (car(tree) != NULL) return eval(car(tree),env);
+    else return NULL;
+}
+
+
+Lexeme *
+evalElseStatement(Lexeme *tree, Lexeme *env)
+{
+    if (getLexemeType(car(tree)) == BLOCK)
+    {
+        Lexeme *elseEnv = extend(env,NULL,NULL);
+        return evalBlock(car(tree),elseEnv);
+    }
+    else return evalIfStatement(car(tree),env);
+}
+
+
+Lexeme *
+evalWhileLoop(Lexeme *tree, Lexeme *env)
+{
+    Lexeme *whileEnv = extend(env,NULL,NULL);
+    Lexeme *cond = eval(car(tree),whileEnv);
+    Lexeme *whileDone;
+    while (getLexemeTf(cond) == true)
+    {
+        whileDone = eval(cdr(tree),whileEnv);
+        cond = eval(car(tree),whileEnv);
+    }
+    return cond;
+}
+
+
+Lexeme *
+evalForLoop(Lexeme *tree, Lexeme *env)
+{
+    Lexeme *forEnv = extend(env,NULL,NULL);
+    eval(car(tree),forEnv);  //varDef
+    Lexeme *cond = eval(car(cdr(tree)),forEnv);
+    // printf("%s\n",getLexemeType(cond));
+    while (getLexemeTf(cond) == true)
+    {
+        eval(cdr(cdr(cdr(tree))),env);  // block
+        // displayEnv(forEnv);
+        eval(car(cdr(cdr(tree))),forEnv);  // expr
+        cond = eval(car(cdr(tree)),forEnv);
+    }
+    return cond;
+}
+
+
+Lexeme *
+evalBuiltIn(Lexeme *id, Lexeme *args)
+{
+    char *funcName = getLexemeID(id);
+    if (strcmp(funcName,"newArray") == 0) return evalNewArray(args);
+    else if (strcmp(funcName,"setArray") == 0) return evalSetArray(args);
+    else if (strcmp(funcName,"getArray") == 0) return evalGetArray(args);
+    else if (strcmp(funcName,"getArgCount") == 0) return evalGetArgCount();
+    else if (strcmp(funcName,"getArg") == 0) return evalGetArg(args);
+    else if (strcmp(funcName,"openFileForReading") == 0) return evalOpenFileForReading(args);
+    else if (strcmp(funcName,"readInt") == 0) return evalReadInteger(args);
+    else if (strcmp(funcName,"eof") == 0) return evalEOF(args);
+}
+
+
+Lexeme *
+evalNewArray(Lexeme *args)
+{
+    if (car(args) == NULL)
+    {
+        printf("MUST HAVE ARGUMENT IN NEW ARRAY CALL - LINE %d\n",getLineNum(car(car(args))));
+        exit(1);
+    }
+    if (getLexemeType(car(args)) != INTEGER)
+    {
+        printf("ARGUMENT MUST BE INTEGER IN NEW ARRAY CALL\n");
+        exit(1);
+    }
+    int size = getLexemeIval(car(args));
+    Lexeme *a = newLexemeArray(size);
+    return a;
+}
+
+
+Lexeme *
+evalSetArray(Lexeme *args)
+{
+    Lexeme *argCyc = args;
+    int count = 0;
+    while (argCyc != NULL)
+    {
+        count++;
+        argCyc = cdr(argCyc);
+    }
+    if (count != 3)
+    {
+        printf("SET ARRAY NEEDS 3 ARGUMENTS\n");
+        exit(1);
+    }
+    Lexeme *a = car(args);
+    Lexeme *i = car(cdr(args));
+    if (getLexemeIval(i) >= getArraySize(a))
+    {
+        printf("ACCESSING ARRAY INDEX OUT OF BOUNDS\n");
+        exit(1);
+    }
+    Lexeme *val = car(cdr(cdr(args)));
+    if (getLexemeType(a) != ARRAY || getLexemeType(i) != INTEGER)
+    {
+        printf("SET ARRAY ARGUMENT MUST BE (ARRAY,INTEGER,VALUE)\n");
+        exit(1);
+    }
+    setArrayVal(a,i,val);
+    return val;
+}
+
+
+Lexeme *
+evalGetArray(Lexeme *args)
+{
+    Lexeme *argCyc = args;
+    int count = 0;
+    while (argCyc != NULL)
+    {
+        count++;
+        argCyc = cdr(argCyc);
+    }
+    if (count != 2)
+    {
+        printf("SET ARRAY NEEDS 2 ARGUMENTS\n");
+        exit(1);
+    }
+    Lexeme *a = car(args);
+    Lexeme *i = car(cdr(args));
+    if (getLexemeIval(i) >= getArraySize(a))
+    {
+        printf("ACCESSING ARRAY INDEX OUT OF BOUNDS\n");
+        exit(1);
+    }
+    if (getLexemeType(a) != ARRAY || getLexemeType(i) != INTEGER)
+    {
+        printf("SET ARRAY ARGUMENT MUST BE (ARRAY,INTEGER)\n");
+        exit(1);
+    }
+    Lexeme *result = getArrayVal(a,i);
+    if (result == NULL) return newLexemeString("NULL",0);
+    return result;
+}
+
+
+Lexeme *
+evalGetArgCount()
+{
+    return newLexemeInt(countCL,0);
+}
+
+
+Lexeme *
+evalGetArg(Lexeme *args)
+{
+    if (getLexemeType(car(args)) != INTEGER)
+    {
+        printf("PARAMETERS FOR GETARG MUST BE (INTEGER)\n");
+        exit(1);
+    }
+    Lexeme *ind = car(args);
+    return newLexemeString(argsCL[getLexemeIval(ind)],0);
+}
+
+
+Lexeme *
+evalOpenFileForReading(Lexeme *args)
+{
+    Lexeme *fileName = car(args);
+    if (getLexemeType(fileName) != STRING)
+    {
+        printf("OPENFILEFORREADING ARGUMENTS MUST BE (STRING)\n");
+        exit(1);
+    }
+    Lexeme *fp = newLexemeFP(getLexemeSval(fileName));
+    return fp;
+}
+
+
+Lexeme *
+evalReadInteger(Lexeme *args)
+{
+    if (getLexemeType(car(args)) != FP)
+    {
+        printf("READINT ARGUMENTS MUST BE (FP)\n");
+        exit(1);
+    }
+    FILE *fp = getLexemeFP(car(args));
+    int x;
+    fscanf(fp,"%d",&x);
+    return newLexemeInt(x,0);
+}
+
+
+Lexeme *
+evalEOF(Lexeme *args)
+{
+    if (getLexemeType(car(args)) != FP)
+    {
+        printf("READINT ARGUMENTS MUST BE (FP)\n");
+        exit(1);
+    }
+    FILE *fp = getLexemeFP(car(args));
+    if (feof(fp)) return newLexemeTf(true);
+    else return newLexemeTf(false);
 }

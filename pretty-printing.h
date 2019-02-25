@@ -41,8 +41,6 @@ void printOptElse(Lexeme *tree);
 void printWhileLoop(Lexeme *tree);
 void printReturnStatement(Lexeme *tree);
 void printForLoop(Lexeme *tree);
-void printCheckOper(Lexeme *tree);
-void printSelfOp(Lexeme *tree);
 void printDoubleSelfOp(Lexeme *tree);
 void printBlock(Lexeme *tree);
 void printStatements(Lexeme *tree);

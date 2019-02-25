@@ -105,3 +105,5 @@ char *RETURNED = "RETURNED";
 char *OCLOSURE = "OCLOSURE";
 char *ARRAY = "ARRAY";
 char *FP = "FP";
+char *LAMBDA = "LAMBDA";
+char *LAMBDAFUNC = "LAMBDAFUNC";

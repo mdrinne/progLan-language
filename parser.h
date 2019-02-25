@@ -70,6 +70,8 @@ Lexeme *statements();
 int     statementsPending();
 Lexeme *statement();
 int     statementPending();
+Lexeme *lambda();
+// int     lambdaPending();
 
 
 #endif

@@ -104,6 +104,9 @@ isBuiltIn(char *n)
     else if (strcmp(n,"openFileForReading") == 0) return 1;
     else if (strcmp(n,"readInt") == 0) return 1;
     else if (strcmp(n,"eof") == 0) return 1;
+    else if (strcmp(n,"closeFile") == 0) return 1;
+    else if (strcmp(n,"print") == 0) return 1;
+    else if (strcmp(n,"printNewLine") == 0) return 1;
     else return 0;
 }
 
@@ -141,6 +144,7 @@ eval(Lexeme *tree, Lexeme *env)
     else if (getLexemeType(tree) == ELSESTATEMENT) return evalElseStatement(tree,env);
     else if (getLexemeType(tree) == WHILELOOP) return evalWhileLoop(tree,env);
     else if (getLexemeType(tree) == FORLOOP) return evalForLoop(tree,env);
+    else if (getLexemeType(tree) == LAMBDAFUNC) return evalLambdaFunc(tree,env);
     else return NULL;
 }
 
@@ -982,6 +986,13 @@ evalForLoop(Lexeme *tree, Lexeme *env)
 
 
 Lexeme *
+evalLambdaFunc(Lexeme *tree, Lexeme *env)
+{
+    return cons(CLOSURE,env,tree);
+}
+
+
+Lexeme *
 evalBuiltIn(Lexeme *id, Lexeme *args)
 {
     char *funcName = getLexemeID(id);
@@ -993,6 +1004,10 @@ evalBuiltIn(Lexeme *id, Lexeme *args)
     else if (strcmp(funcName,"openFileForReading") == 0) return evalOpenFileForReading(args);
     else if (strcmp(funcName,"readInt") == 0) return evalReadInteger(args);
     else if (strcmp(funcName,"eof") == 0) return evalEOF(args);
+    else if (strcmp(funcName,"closeFile") == 0) return evalCloseFile(args);
+    else if (strcmp(funcName,"print") == 0) return evalPrint(args);
+    else if (strcmp(funcName,"printNewLine") == 0) return evalPrintNewLine(args);
+    else return NULL;
 }
 
 
@@ -1135,10 +1150,56 @@ evalEOF(Lexeme *args)
 {
     if (getLexemeType(car(args)) != FP)
     {
-        printf("READINT ARGUMENTS MUST BE (FP)\n");
+        printf("EOF ARGUMENTS MUST BE (FP)\n");
         exit(1);
     }
     FILE *fp = getLexemeFP(car(args));
     if (feof(fp)) return newLexemeTf(true);
     else return newLexemeTf(false);
+}
+
+
+Lexeme *
+evalCloseFile(Lexeme *args)
+{
+    if (getLexemeType(car(args)) != FP)
+    {
+        printf("EOF ARGUMENTS MUST BE (FP)\n");
+        exit(1);
+    }
+    FILE *fp = getLexemeFP(car(args));
+    fclose(fp);
+    return newLexemeTf(true);
+}
+
+
+Lexeme *
+evalPrint(Lexeme *args)
+{
+    if (cdr(args) != NULL)
+    {
+        printf("CAN ONLY PASS ONE ARUMENT TO PRINT\n");
+    }
+    if (!(getLexemeType(car(args)) == INTEGER || getLexemeType(car(args)) == REAL || getLexemeType(car(args)) == BOOL || getLexemeType(car(args)) == STRING))
+    {
+        printf("CAN ONLY PRINT A STRING OR NUMBER OR BOOL\n");
+        exit(1);
+    }
+    if (getLexemeType(car(args)) == INTEGER) printf("%d",getLexemeIval(car(args)));
+    else if (getLexemeType(car(args)) == REAL) printf("%lf",getLexemeRval(car(args)));
+    else if (getLexemeType(car(args)) == BOOL)
+    {
+        if (getLexemeTf(car(args)) == true) printf("true");
+        else printf("false");
+    }
+    else printf("%s",getLexemeSval(car(args)));
+    return newLexemeTf(true);
+}
+
+
+Lexeme *
+evalPrintNewLine()
+{
+    printf("\n");
+    return newLexemeTf(true);
 }

@@ -61,6 +61,7 @@ Lexeme *evalOptElse(Lexeme *tree, Lexeme *env);
 Lexeme *evalElseStatement(Lexeme *tree, Lexeme *env);
 Lexeme *evalWhileLoop(Lexeme *tree, Lexeme *env);
 Lexeme *evalForLoop(Lexeme *tree, Lexeme *env);
+Lexeme *evalLambdaFunc(Lexeme *tree, Lexeme *env);
 Lexeme *evalBuiltIn(Lexeme *closure, Lexeme *args);
 Lexeme *evalNewArray(Lexeme *args);
 Lexeme *evalSetArray(Lexeme *args);
@@ -70,6 +71,9 @@ Lexeme *evalGetArg(Lexeme *args);
 Lexeme *evalOpenFileForReading(Lexeme *args);
 Lexeme *evalReadInteger(Lexeme *args);
 Lexeme *evalEOF(Lexeme *args);
+Lexeme *evalCloseFile(Lexeme *args);
+Lexeme *evalPrint(Lexeme *args);
+Lexeme *evalPrintNewLine();
 
 
 Lexeme *evalConstructor(Lexeme *closure, Lexeme *env);

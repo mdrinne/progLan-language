@@ -179,6 +179,7 @@ lexVarOrKeyword()
     else if (strcmp(buffer, "var") == 0) return newLexeme(VAR,line);
     else if (strcmp(buffer, "for") == 0) return newLexeme(FOR,line);
     else if (strcmp(buffer, "call") == 0) return newLexeme(CALL,line);
+    else if (strcmp(buffer,"lambda") == 0) return newLexeme(LAMBDA,line);
     else return newLexemeID(buffer,getLine());
 }
 

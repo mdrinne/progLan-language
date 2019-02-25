@@ -1,4 +1,4 @@
-var z = 0 - 2$
+?var z = 0 - 2$
 var y = 5 + z$
 var a = 'help' > 'held'$
 var b = 6 >= 8$
@@ -21,11 +21,11 @@ func test()
 func test2(var def, var ghi)
 {
     return def + ghi$
-}
+}?
 
 main
 {
-    var x = 10$
+    ?var x = 10$
     x = x + 1$
     var blah = call test()$
     if (blah == 11)
@@ -56,6 +56,14 @@ main
     var fp = call openFileForReading('readTest.txt')$
     var readInt = call readInt(fp)$
     var endof = call eof(fp)$
+    call closeFile(fp)$
+    call print('hello, world!')$
+    call printNewLine()$
+    var hw = 'hello' + ', world'$
+    call print(hw + '!')$
+    call printNewLine()$?
+    var lamb = lambda(var x){x++$}$
+    var result = call lamb(10)$
     
     return$
 }

@@ -275,13 +275,10 @@ Lexeme *
 unary()
 {
     Lexeme *u;
-    // if (check(MINUS))
-    // {
-    //     u = uminus();
-    // }
     if (check(INTEGER)) u = match(INTEGER);
     else if (check(REAL)) u = match(REAL);
     else if (check(STRING)) u = match(STRING);
+    else if (check(LAMBDA)) u = lambda();
     else u = match(ID);
     return cons(UNARY,u,NULL);
 }
@@ -290,7 +287,7 @@ unary()
 int
 unaryPending()
 {
-    return check(INTEGER) || check(REAL) || check(STRING) || check(ID);
+    return check(INTEGER) || check(REAL) || check(STRING) || check(ID) || check(LAMBDA);
 }
 
 
@@ -678,4 +675,16 @@ statementPending()
     return exprPending() ||  varDefPending() || funcDefPending() || ifStatementPending()
         || whileLoopPending() || forLoopPending() || returnStatementPending()
         || funcCallPending();
+}
+
+
+Lexeme *
+lambda()
+{
+    match(LAMBDA);
+    match(OPAREN);
+    Lexeme *optPar = optParamList();
+    match(CPAREN);
+    Lexeme *b = block();
+    return cons(LAMBDAFUNC,NULL,cons(GLUE,optPar,b));
 }

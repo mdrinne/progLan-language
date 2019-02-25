@@ -109,6 +109,8 @@ char *RETURNED;
 char *OCLOSURE;
 char *ARRAY;
 char *FP;
+char *LAMBDA;
+char *LAMBDAFUNC;
 
 
 #endif

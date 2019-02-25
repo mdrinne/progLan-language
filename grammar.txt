@@ -15,7 +15,7 @@ includes : include
 
 include : HASH INCLUDE QUOTE ID DOT ID QUOTE
 
-funcDef : FUNCTION ID OPAREN optParameterList CPAREN block
+funcDef : FUNCTION ID OPAREN optParamList CPAREN block
 
 parameterList : VAR ID
               | VAR ID COMMA parameterList
@@ -34,6 +34,7 @@ unary : ID
       | INTEGER
       | REAL
       | STRING
+      | LAMBDA OPAREN optParamList CPAREN block
       | uminus
 
 uminus : MINUS unary

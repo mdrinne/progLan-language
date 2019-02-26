@@ -25,10 +25,8 @@ main(int argc, char *argv[])
     Lexeme *tree = program();
     match(END_OF_FILE);
     Lexeme *env = newEnv();
-    // pp(tree);
     setCLvars(argc,argv);
     eval(tree,env);
-    // displayEnv(env);
     fclose(fp);
     return 0;
 }

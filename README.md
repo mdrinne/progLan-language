@@ -3,16 +3,16 @@ Matt Rinne
 cs403 Programming Languagues
 
 ============================
-Very similar to c, with slight differences
+ALL PSEUDO CODE WAS PROVIDED BY DR. LUSTH
 
-Includes at the top
+============================
+Very similar to c, with slight differences
 
 Main function at bottom of program
 
 variable definition: type is not specified, use var
   var x = 123
   var str = 'string'
-  var temp
 
 Function definition: "func FFFF" 
   where FFFF is replaced with the function name
@@ -22,524 +22,111 @@ Call functions with "call FFFF()"
   
 Statements end with a '$'
 
-Strings can be added together with '+'
+Available operators :
+    +
+    -
+    *
+    /
+    =
+    >
+    >=
+    <
+    <=
+    ==
+    !=
+    %
+    ||
+    &&
 
-Built in stacks, queues, and arrays in the making
-
-Print with 'call print()'
+Var types supported :
+    INTEGER
+    REAL
+    STRING
+    BOOL
+    FP (file pointer)
 
 ============================
-To run Pretty Printer using makefile commands:
+BUILTIN FUNCTIONS
 
-  make : compiles pp executable
-  
-  make run : runs all 3 test cases
-  
-  make clean : gets rid of all *.o, *.pp.* files and pp executable
+newArray(INTEGER) : takes in an integer and creates an array of that size
 
-  make test1: runs test1, output below
+setArray(ARRAY,INTEGER,VALUE) : takes in an array, integer and value, the integer  being the index of the array to set
 
-  make test2: runs test2, output below
+getArray(ARRAY,INTEGER) : takes in an array and integer, returning the value at the array at the given index
 
-  make test3: runs test3, output below
+getArgCount() : returns the number of command line arguments
 
-=============================
-test1 output:
+getArg(INTEGER) : takes in an integer and returns the argument at the given index
 
-Original file:
-? 
-  Matthew Rinne
-  test1.txt
-  cs403 Programming Languages
-?
+openFileForReading(STRING) : takes in a string (filename) and opens that file for reading, returning a file pointer
 
-#include "example.h"
+readInt(FP) : takes in a filepointer and returns the next integer in the file
 
-func newFunc(var numb, var text)
-{
-    return numb$
-}
+eof(FP) : takes in a filepointer and returns true if at the end of the file, else returns false
 
-func secondFunc()
-{
-    var xyz = 'hello, world!'$
-    return xyz$
-}
+closeFile(FP) : takes in a filepointer and closes the given file
 
-main () {
-    ? variable definitions ?
-    var x = 57.3$
-    var string = 'hello'$
-    var empty$
+print(UNARY) : takes in any unary and prints it to stdout
 
-    ? some expressions ?
-    var y = x + 1$
-    var z = y * x$
-    var temp = string + 'world'$
-
-    ? functioncall (also uses optExprList) ?
-    var a = call newFunc(x, string)$
-    var b = call secondFunc()$
-
-    ? if block ?
-    if (x = 58)
-    {
-        x = x - 1$
-    }
-    else if (x = 56)
-    {
-        x = x + 1$
-    }
-    else
-    {
-        x = 57$
-    }
-
-    ? while loop ?
-    while (x != 59)
-    {
-        x = x + 1$
-    }
-
-    ? for loop ?
-    for (var i=0; i<5; i++)
-    {
-        x * 5$
-    }
-
-    return$
-}
-Pretty Printed version of the original:
-
-
-
-
-
-
-#include "example.h"
-
-func newFunc(var numb, var text)
-{
-return numb$
-}
-
-func secondFunc()
-{
-var xyz = 'hello, world!'$
-return xyz$
-}
-
-main ()
-{
-var x = 57.300000$
-var string = 'hello'$
-var empty$
-
-
-var y = x + 1$
-var z = y * x$
-var temp = string + 'world'$
-
-
-var a = call newFunc(xstring)$
-var b = call secondFunc()$
-
-
-if (x = 58)
-{
-x = x - 1$
-}
-else if (x = 56)
-{
-x = x + 1$
-}
-else 
-{
-x = 57$
-}
-
-
-while (x != 59)
-{
-x = x + 1$
-}
-
-
-for (var i=0; i<5; i++)
-{
-x * 5$
-}
-
-return$
-}
-Pretty Printed version of the pretty printed version:
-
-
-
-
-
-
-#include "example.h"
-
-func newFunc(var numb, var text)
-{
-return numb$
-}
-
-func secondFunc()
-{
-var xyz = 'hello, world!'$
-return xyz$
-}
-
-main ()
-{
-var x = 57.300000$
-var string = 'hello'$
-var empty$
-
-
-var y = x + 1$
-var z = y * x$
-var temp = string + 'world'$
-
-
-var a = call newFunc(xstring)$
-var b = call secondFunc()$
-
-
-if (x = 58)
-{
-x = x - 1$
-}
-else if (x = 56)
-{
-x = x + 1$
-}
-else 
-{
-x = 57$
-}
-
-
-while (x != 59)
-{
-x = x + 1$
-}
-
-
-for (var i=0; i<5; i++)
-{
-x * 5$
-}
-
-return$
-}
-diff -s -q test1.pp.1 test1.pp.2
-Files test1.pp.1 and test1.pp.2 are identical
-  
-============================
-test2 output:
-
-Original file:
-? 
-  Matthew Rinne
-  test2.txt
-  cs403 Programming Languages
-?
-
-#include "stdfunc.h"
-#include "sbkahsdhjk.c"
-#include "skljs.skd"
-
-#include "shjksld.sdfk"
-
-
-func combineStrings(var str1, var str2)
-{
-    return str1_hsj + str2$
-}
-
-
-func blah()
-{
-    return 12$
-}
-
-
-main ()
-{
-    var x = 1$
-
-    while (x != 20)
-    {
-        for (var i=0; i<=2; i++)
-        {
-            call print(x)$
-        }
-        x++$
-    }
-    
-    var y = x % 6$
-
-    var str1 = 'hello'$
-    var str2 = ', world!'$
-    
-    var str3 = call combineStrings(str1,str2)$
-
-    call print(str3)$
-    
-    return$
-}Pretty Printed version of the original:
-
-
-
-
-
-
-#include "stdfunc.h"
-#include "sbkahsdhjk.c"
-#include "skljs.skd"
-
-#include "shjksld.sdfk"
-
-
-func combineStrings(var str1, var str2)
-{
-return str1_hsj + str2$
-}
-
-
-func blah()
-{
-return 12$
-}
-
-
-main ()
-{
-var x = 1$
-
-while (x != 20)
-{
-for (var i=0; i<=2; i++)
-{
-call print(x)$
-}
-x++$
-}
-
-var y = x % 6$
-
-var str1 = 'hello'$
-var str2 = ', world!'$
-
-var str3 = call combineStrings(str1str2)$
-
-call print(str3)$
-
-return$
-}
-Pretty Printed version of the pretty printed version:
-
-
-
-
-
-
-#include "stdfunc.h"
-#include "sbkahsdhjk.c"
-#include "skljs.skd"
-
-#include "shjksld.sdfk"
-
-
-func combineStrings(var str1, var str2)
-{
-return str1_hsj + str2$
-}
-
-
-func blah()
-{
-return 12$
-}
-
-
-main ()
-{
-var x = 1$
-
-while (x != 20)
-{
-for (var i=0; i<=2; i++)
-{
-call print(x)$
-}
-x++$
-}
-
-var y = x % 6$
-
-var str1 = 'hello'$
-var str2 = ', world!'$
-
-var str3 = call combineStrings(str1str2)$
-
-call print(str3)$
-
-return$
-}
-diff -s -q test2.pp.1 test2.pp.2
-Files test2.pp.1 and test2.pp.2 are identical
+printNewLine() : prints a new line character to stdout
 
 ============================
-test3 output:
+To run evaluator using makefile commands:
 
-Original file:
-? 
-  Matthew Rinne
-  test3.txt
-  cs403 Programming Languages
-?
+    make : compiles rin evaluator
 
-#include "stdfunc.h"
+    run : runs evaluator on given file name
 
+    error1 : prints error1.rin testfile
 
-func square(var num)
-{
-    return num * num$
-}
+    error1x :  compiles evaluator and executes error1.rin testfile
 
-func doubleString(var str)
-{
-    return string + string$
-}
+    error2 : prints error2.rin testfile
 
+    error2x :  compiles evaluator and executes error2.rin testfile
 
-main ()
-{
-    var x = 10$
-    x = call square(x)$
+    error3 : prints error3.rin testfile
 
-    var y = 5$
-    y = call square(call square(y))$
+    error3x :  compiles evaluator and executes error3.rin testfile
 
-    var str = 'ha'$
-    str = call doubleString(call doubleString(str))$
-    call print(str)$
+    error4 : prints error4.rin testfile
 
-    if (x == 100 && y == 25)
-    {
-        call print('WOW')$
-    }
-    else if (x == 100 && y == 125)
-    {
-        call print('WOOH')$
-    }
-    else
-    {
-        call print(str)$
-    }
+    error4x :  compiles evaluator and executes error4.rin testfile
 
-    return$
-}Pretty Printed version of the original:
+    error5 : prints error5.rin testfile
 
+    error5x :  compiles evaluator and executes error5.rin testfile
 
+    arrays : prints arrays.rin testfile
 
+    arraysx : compiles evaluator and executes arrays.rin testfile
 
+    conditionals : prints conditionals.rin testfilie
 
+    conditionalsx : compiles evaluator and executes conditionals.rin testfile
 
-#include "stdfunc.h"
+    recursion : prints recursion.rin testfile
 
+    recursionx : compiles evaluator and executes recursion.rin testfile
 
-func square(var num)
-{
-return num * num$
-}
+    iteration : prints iterations.rin testfile
 
-func doubleString(var str)
-{
-return string + string$
-}
+    iterationx : compiles evaluator and executes iteration.rin testfile
 
+    functions : prints functions.rin testfile
 
-main ()
-{
-var x = 10$
-x = call square(x)$
+    functionsx : compiles evaluator and executes functions.rin testfile
 
-var y = 5$
-y = call square(call square(y))$
+    lambda : prints lambda.rin testfile
 
-var str = 'ha'$
-str = call doubleString(call doubleString(str))$
-call print(str)$
+    lambdax : compiles evaluator and executes lambda.rin testfile
 
-if (x == 100 && y == 25)
-{
-call print('WOW')$
-}
-else if (x == 100 && y == 125)
-{
-call print('WOOH')$
-}
-else 
-{
-call print(str)$
-}
+    objects : prints objects.rin testfile
 
-return$
-}
-Pretty Printed version of the pretty printed version:
+    objectsx : compiles evaluator and executes objects.rin testfile
 
+    problem : prints problem.rin testfile
 
+    problemx : compiles evaluator and executes problem.rin testfile
 
-
-
-
-#include "stdfunc.h"
-
-
-func square(var num)
-{
-return num * num$
-}
-
-func doubleString(var str)
-{
-return string + string$
-}
-
-
-main ()
-{
-var x = 10$
-x = call square(x)$
-
-var y = 5$
-y = call square(call square(y))$
-
-var str = 'ha'$
-str = call doubleString(call doubleString(str))$
-call print(str)$
-
-if (x == 100 && y == 25)
-{
-call print('WOW')$
-}
-else if (x == 100 && y == 125)
-{
-call print('WOOH')$
-}
-else 
-{
-call print(str)$
-}
-
-return$
-}
-diff -s -q test3.pp.1 test3.pp.2
-Files test3.pp.1 and test3.pp.2 are identical
-
-============================
+    clean : cleans directory of all .o files and rin executable

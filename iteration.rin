@@ -4,14 +4,33 @@
   cs403 Programming Languages
 ?
 
-main
+func factorial(var x)
 {
-    call print('printing 0-20 with for loop iteration')$
+    call print('in factorial')$
     call printNewLine()$
 
-    for (var i=0; i<=20; i++)
+    var sum = 1$
+
+    call print('after sum')$
+    call printNewLine()$
+    if (x <= 1)
     {
-        call print(i)$
+        call print('in if')$
         call printNewLine()$
+        return sum$
     }
+    call print('after if')$
+    call printNewLine()$
+    while (x > 1)
+    {
+        sum = sum * x$
+        x--$
+    }
+    return sum$
+}
+
+main
+{
+    call print(call factorial(10))$
+    call printNewLine()$
 }

@@ -1,10 +1,9 @@
 LOPTS = -Wall -Wextra -g -std=c99
-OBJS = *.o *.pp.*
+OBJS = *.o
 
-make : eval
-	./eval test2.rin
+make : rin
 
-run : error1 error1x error2 error2x error3 error3x error4 error4x error5 error5x arrays arraysx conditionals conditionalsx recursion recursionx iteration iterationx functions functionsx lambda lambdax objects objectsx problem problemx
+run : run
 
 rin :
 	gcc $(LOPTS) -c eval.c lexeme.c lexer.c types.c parser.c evaluator.c environment.c pretty-printing.c

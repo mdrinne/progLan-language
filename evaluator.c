@@ -797,7 +797,7 @@ Lexeme *
 evalOptElse(Lexeme *tree, Lexeme *env)
 {
     if (car(tree) != NULL) return eval(car(tree),env);
-    else return NULL;
+    else return newLexemeString(NULL,0);
 }
 
 

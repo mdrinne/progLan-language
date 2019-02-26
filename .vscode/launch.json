@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/rin",
-            "args": ["recursion.rin"],
+            "args": ["iteration.rin"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

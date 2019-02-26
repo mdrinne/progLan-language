@@ -4,24 +4,24 @@
   cs403 Programming Languages
 ?
 
-func recur(var x)
+func fib(var x)
 {
-    call print('x = ')$
-    call print(x)$
-    call printNewLine()$
-
-    if (x < 10)
+    if (x == 0)
     {
-        return call recur(x++)$
+        return 0$
+    }
+    else if (x == 1)
+    {
+        return 1$
     }
     else
     {
-        return 10$
+        return call fib(x - 1) + call fib(x - 2)$
     }
 }
 
 main
 {
-    var fun = call recur(2)$
-    call print(fun)$
+    call print(call fib(6))$
+    call printNewLine()$
 }

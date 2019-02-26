@@ -1,0 +1,17 @@
+? 
+  Matthew Rinne
+  iteration.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    call print('printing 0-20 with for loop iteration')$
+    call printNewLine()$
+
+    for (var i=0; i<=20; i++)
+    {
+        call print(i)$
+        call printNewLine()$
+    }
+}

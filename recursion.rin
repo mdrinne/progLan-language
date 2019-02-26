@@ -1,0 +1,27 @@
+? 
+  Matthew Rinne
+  recursion.rin
+  cs403 Programming Languages
+?
+
+func recur(var x)
+{
+    call print('x = ')$
+    call print(x)$
+    call printNewLine()$
+
+    if (x < 10)
+    {
+        return call recur(x++)$
+    }
+    else
+    {
+        return 10$
+    }
+}
+
+main
+{
+    var fun = call recur(2)$
+    call print(fun)$
+}

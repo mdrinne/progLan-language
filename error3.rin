@@ -1,0 +1,15 @@
+? 
+  Matthew Rinne
+  error3.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    func blank()
+    {
+        return 20$
+    }
+
+    var x = blank()$
+}

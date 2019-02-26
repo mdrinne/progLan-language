@@ -18,9 +18,6 @@ void printProgram(Lexeme *tree);
 void printDefs(Lexeme *tree);
 void printDef(Lexeme *tree);
 void printOptDefs(Lexeme *tree);
-// void printIncludes(Lexeme *tree);
-// void printInclude(Lexeme *tree);
-// void printOptIncludes(Lexeme *tree);
 void printFuncDef(Lexeme *tree);
 void printParamList(Lexeme *tree);
 void printOptParamList(Lexeme *tree);
@@ -45,6 +42,8 @@ void printDoubleSelfOp(Lexeme *tree);
 void printBlock(Lexeme *tree);
 void printStatements(Lexeme *tree);
 void printStatement(Lexeme *tree);
+void printLambdaFunc(Lexeme *tree);
+void printLambdaBlock(Lexeme *tree);
 
 
 #endif

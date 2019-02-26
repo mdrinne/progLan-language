@@ -1,0 +1,11 @@
+? 
+  Matthew Rinne
+  error5.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    var x = 'hello,world!'$
+    var y = 1 && x$
+}

@@ -76,60 +76,58 @@ pp(Lexeme *tree)
         fixLine(tree);
         printf("%s", getLexemeID(tree));
     }
-            else if (getLexemeType(tree) == PLUS) printf("+");
-            else if (getLexemeType(tree) == TIMES) printf("*");
-            else if (getLexemeType(tree) == DIVIDES) printf("/");
-            else if (getLexemeType(tree) == MINUS) printf("-");
-            else if (getLexemeType(tree) == ASSIGN) printf("=");
-            else if (getLexemeType(tree) == GREATERTHAN) printf(">");
-            else if (getLexemeType(tree) == GREATERTHANOREQUAL) printf(">=");
-            else if (getLexemeType(tree) == LESSTHAN) printf("<");
-            else if (getLexemeType(tree) == LESSTHANOREQUAL) printf("<=");
+    else if (getLexemeType(tree) == PLUS) printf("+");
+    else if (getLexemeType(tree) == TIMES) printf("*");
+    else if (getLexemeType(tree) == DIVIDES) printf("/");
+    else if (getLexemeType(tree) == MINUS) printf("-");
+    else if (getLexemeType(tree) == ASSIGN) printf("=");
+    else if (getLexemeType(tree) == GREATERTHAN) printf(">");
+    else if (getLexemeType(tree) == GREATERTHANOREQUAL) printf(">=");
+    else if (getLexemeType(tree) == LESSTHAN) printf("<");
+    else if (getLexemeType(tree) == LESSTHANOREQUAL) printf("<=");
     else if (getLexemeType(tree) == NOTEQUALS) printf("!=");
     else if (getLexemeType(tree) == PLUSEQUALS) printf("+=");
     else if (getLexemeType(tree) == MINUSEQUALS) printf("-=");
     else if (getLexemeType(tree) == TIMESEQUALS) printf("*=");
     else if (getLexemeType(tree) == DIVIDESEQUALS) printf("/=");
-            else if (getLexemeType(tree) == PLUSPLUS) printf("++");
-            else if (getLexemeType(tree) == MINUSMINUS) printf("--");
-            else if (getLexemeType(tree) == NOT) printf("!");
-            else if (getLexemeType(tree) == MOD) printf("%%");
-            else if (getLexemeType(tree) == EQUALEQUAL) printf("==");
-            else if (getLexemeType(tree) == ANDAND) printf("&&");
-            else if (getLexemeType(tree) == OROR) printf("||");
-            else if (getLexemeType(tree) == PLUSPLUS) printf("++");
-            else if (getLexemeType(tree) == MINUSMINUS) printf("--");
-            else if (getLexemeType(tree) == PROGRAM) printProgram(tree);
-            else if (getLexemeType(tree) == DEFS) printDefs(tree);
-            else if (getLexemeType(tree) == DEF) printDef(tree);
-            else if (getLexemeType(tree) == OPTDEFS) printOptDefs(tree);
-    // else if (getLexemeType(tree) == INCLUDES) printIncludes(tree);
-    // else if (getLexemeType(tree) == INCLUDESTATEMENT) printInclude(tree);
-    // else if (getLexemeType(tree) == OPTINCLUDES) printOptIncludes(tree);
-            else if (getLexemeType(tree) == FUNCDEF) printFuncDef(tree);
-            else if (getLexemeType(tree) == PARAMLIST) printParamList(tree);
-            else if (getLexemeType(tree) == OPTPARAMLIST) printOptParamList(tree);
-            else if (getLexemeType(tree) == MAINFUNC) printMainFunc(tree);
-            else if (getLexemeType(tree) == VARDEF) printVarDef(tree);
-            else if (getLexemeType(tree) == OPTINIT) printOptInit(tree);
-            else if (getLexemeType(tree) == UNARY) printUnary(tree);
-            else if (getLexemeType(tree) == UMINUS) printUminus(tree);
-            else if (getLexemeType(tree) == OPER) printOper(tree);
-            else if (getLexemeType(tree) == EXPR) printExpr(tree);
-            else if (getLexemeType(tree) == OPTEXPR) printOptExpr(tree);
-            else if (getLexemeType(tree) == ARGLIST) printArgList(tree);
-            else if (getLexemeType(tree) == OPTARGLIST) printOptArgList(tree);
-            else if (getLexemeType(tree) == FUNCCALL) printFuncCall(tree);
-            else if (getLexemeType(tree) == IFSTATEMENT) printIfStatement(tree);
-            else if (getLexemeType(tree) == ELSESTATEMENT) printElseStatement(tree);
-            else if (getLexemeType(tree) == OPTELSE) printOptElse(tree);
-            else if (getLexemeType(tree) == WHILELOOP) printWhileLoop(tree);
-            else if (getLexemeType(tree) == RETURNSTATEMENT) printReturnStatement(tree);
+    else if (getLexemeType(tree) == PLUSPLUS) printf("++");
+    else if (getLexemeType(tree) == MINUSMINUS) printf("--");
+    else if (getLexemeType(tree) == NOT) printf("!");
+    else if (getLexemeType(tree) == MOD) printf("%%");
+    else if (getLexemeType(tree) == EQUALEQUAL) printf("==");
+    else if (getLexemeType(tree) == ANDAND) printf("&&");
+    else if (getLexemeType(tree) == OROR) printf("||");
+    else if (getLexemeType(tree) == PLUSPLUS) printf("++");
+    else if (getLexemeType(tree) == MINUSMINUS) printf("--");
+    else if (getLexemeType(tree) == PROGRAM) printProgram(tree);
+    else if (getLexemeType(tree) == DEFS) printDefs(tree);
+    else if (getLexemeType(tree) == DEF) printDef(tree);
+    else if (getLexemeType(tree) == OPTDEFS) printOptDefs(tree);
+    else if (getLexemeType(tree) == FUNCDEF) printFuncDef(tree);
+    else if (getLexemeType(tree) == PARAMLIST) printParamList(tree);
+    else if (getLexemeType(tree) == OPTPARAMLIST) printOptParamList(tree);
+    else if (getLexemeType(tree) == MAINFUNC) printMainFunc(tree);
+    else if (getLexemeType(tree) == VARDEF) printVarDef(tree);
+    else if (getLexemeType(tree) == OPTINIT) printOptInit(tree);
+    else if (getLexemeType(tree) == UNARY) printUnary(tree);
+    else if (getLexemeType(tree) == UMINUS) printUminus(tree);
+    else if (getLexemeType(tree) == OPER) printOper(tree);
+    else if (getLexemeType(tree) == EXPR) printExpr(tree);
+    else if (getLexemeType(tree) == OPTEXPR) printOptExpr(tree);
+    else if (getLexemeType(tree) == ARGLIST) printArgList(tree);
+    else if (getLexemeType(tree) == OPTARGLIST) printOptArgList(tree);
+    else if (getLexemeType(tree) == FUNCCALL) printFuncCall(tree);
+    else if (getLexemeType(tree) == IFSTATEMENT) printIfStatement(tree);
+    else if (getLexemeType(tree) == ELSESTATEMENT) printElseStatement(tree);
+    else if (getLexemeType(tree) == OPTELSE) printOptElse(tree);
+    else if (getLexemeType(tree) == WHILELOOP) printWhileLoop(tree);
+    else if (getLexemeType(tree) == RETURNSTATEMENT) printReturnStatement(tree);
     else if (getLexemeType(tree) == FORLOOP) printForLoop(tree);
-            else if (getLexemeType(tree) == DOUBLESELFOP) printDoubleSelfOp(tree);
-            else if (getLexemeType(tree) == BLOCK) printBlock(tree);
-            else if (getLexemeType(tree) == STATEMENTS) printStatements(tree);
-            else if (getLexemeType(tree) == STATEMENT) printStatement(tree);
+    else if (getLexemeType(tree) == DOUBLESELFOP) printDoubleSelfOp(tree);
+    else if (getLexemeType(tree) == BLOCK) printBlock(tree);
+    else if (getLexemeType(tree) == STATEMENTS) printStatements(tree);
+    else if (getLexemeType(tree) == STATEMENT) printStatement(tree);
+    else if (getLexemeType(tree) == LAMBDAFUNC) printLambdaFunc(tree);
     else if (tree != NULL) printf("not listed TYPE\n");
 }
 
@@ -137,10 +135,7 @@ pp(Lexeme *tree)
 void
 printProgram(Lexeme *tree)
 {
-    // pp(car(tree));  // INCLUDES
-    // printf("optdefs\n");
     pp(car(tree));  // OPTDEFS
-    // printf("main\n");
     pp(cdr(tree));  // MAINFUNC
 }
 
@@ -159,7 +154,12 @@ printDefs(Lexeme *tree)
 void
 printDef(Lexeme *tree)
 {
-    pp(car(tree));  // VARDEF or FUNCDEF
+    if (getLexemeType(car(tree)) == VARDEF)
+    {
+        pp(car(tree));
+        printf("$");
+    }
+    else pp(car(tree));  // FUNCDEF
 }
 
 
@@ -168,36 +168,6 @@ printOptDefs(Lexeme *tree)
 {
     if (car(tree) != NULL)  pp(car(tree));
 }
-
-
-// void
-// printIncludes(Lexeme *tree)
-// {
-//     while (tree != NULL)
-//     {
-//         pp(car(tree));  // INCLUDE
-//         tree = cdr(tree);  // INCLUDES or NULL
-//     }
-// }
-
-
-// void
-// printInclude(Lexeme *tree)
-// {
-//     fixLine(car(tree));
-//     printf("#include \"");
-//     pp(car(tree));  // ID (filename)
-//     printf(".");
-//     pp(cdr(tree));  // ID (file extension)
-//     printf("\"");
-// }
-
-
-// void
-// printOptIncludes(Lexeme *tree)
-// {
-//     if (car(tree) != NULL) pp(car(tree));
-// }
 
 
 void
@@ -250,7 +220,6 @@ printVarDef(Lexeme *tree)
     printf("var ");
     pp(car(tree));  // ID (varName)
     pp(cdr(tree));  // OPTINIT
-    printf("$");
 }
 
 
@@ -456,5 +425,33 @@ printStatement(Lexeme *tree)
         pp(car(tree));  // EXPR or FUNCCALL
         printf("$");
     }
-    else pp(car(tree));  // VARDEF or FUNCDEF or ...
+    else if (getLexemeType(car(tree)) == VARDEF)
+    {
+        pp(car(tree));
+        printf("$");
+        printf("\n");
+        ppline++;
+    }
+    else pp(car(tree));  // FUNCDEF or ...
+}
+
+
+void
+printLambdaFunc(Lexeme *tree)
+{
+    printf("lambda(");
+    pp(car(cdr(tree)));
+    printf(")");
+    printLambdaBlock(cdr(cdr(tree)));
+}
+
+
+void
+printLambdaBlock(Lexeme *tree)
+{
+    printf("{");
+    pp(car(tree));  // STATEMENTS
+    printf(" ");
+    printf("}");
+    ppline += 1;
 }

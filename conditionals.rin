@@ -1,0 +1,51 @@
+? 
+  Matthew Rinne
+  conditionals.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    var x = 20$
+
+    call print('testing if/else statements')$
+    call printNewLine()$
+
+    if (x == 10)
+    {
+        call print('x is infact equal to 10')$
+        call printNewLine()$
+    }
+    else if (x == 20)
+    {
+        call print('x is infact equal to 20')$
+        call printNewLine()$
+    }
+
+    if (x < 20)
+    {
+        call print('x is LESSTHAN 20')$
+        call printNewLine()$
+    }
+    else if (x > 20)
+    {
+        call print('x is GREATERTHAN 20')$
+        call printNewLine()$
+    }
+    else
+    {
+        call print('x was neither GREATERTHAN nor LESSTHAN 20')$
+        call printNewLine()$
+    }
+    
+    call printNewLine()$
+    call print('testing while loop')$
+    call printNewLine()$
+
+    while (x > 15)
+    {
+        call print(x)$
+        call printNewLine()$
+        x--$
+    }
+}

@@ -24,10 +24,6 @@ Lexeme *def();
 int     defPending();
 Lexeme *optDefs();
 int     optDefsPending();
-// Lexeme *includes();
-// int     includesPending();
-// Lexeme *includeStatement();
-// Lexeme *optIncludes();
 Lexeme *funcDef();
 int     funcDefPending();
 Lexeme *parameterList();
@@ -71,7 +67,6 @@ int     statementsPending();
 Lexeme *statement();
 int     statementPending();
 Lexeme *lambda();
-// int     lambdaPending();
 
 
 #endif

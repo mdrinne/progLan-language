@@ -1,0 +1,32 @@
+? 
+  Matthew Rinne
+  problem.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    var argC = call getArgCount()$
+    var lastarg = call getArg(argC - 1)$
+    call print(lastarg)$
+    call printNewLine()$
+
+    var fp = call openFileForReading(lastarg)$
+
+    var sum = 0$
+    var i = 0$
+    var endof = call eof(fp)$
+    var true = 1 && 1$
+    while (endof != true)
+    {
+        i = call readInt(fp)$
+        sum = sum + i$
+        endof = call eof(fp)$
+    }
+
+    call closeFile(fp)$
+
+    call print('sum is ')$
+    call print(sum)$
+    call printNewLine()$
+}

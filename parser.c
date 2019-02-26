@@ -40,7 +40,7 @@ match(char *type)
     legal = 0;
     printf("SYNTAX ERROR: expected %s, got %s - line %d\n",type,getLexemeType(current),getLine());
     printf("illegal\n");
-    exit(0);
+    exit(1);
 }
 
 
@@ -65,7 +65,6 @@ Lexeme *
 program()
 {
     Lexeme *d, *m;
-    // i = includes();
     d = optDefs();
     m = mainFunc();
     return cons(PROGRAM,d,m);
@@ -128,49 +127,6 @@ optDefsPending()
 }
 
 
-// Lexeme *
-// includes()
-// {
-//     Lexeme *i, *is;
-//     i = includeStatement();
-//     if (includesPending()) is = includes();
-//     else is = NULL;
-//     return cons(INCLUDES,i,is);
-// }
-
-
-// int
-// includesPending()
-// {
-//     return check(HASH);
-// }
-
-
-// Lexeme *
-// includeStatement()
-// {
-//     Lexeme *fn, *fex;
-//     match(HASH);
-//     match(INCLUDE);
-//     match(QUOTE);
-//     fn = match(ID);
-//     match(DOT);
-//     fex = match(ID);
-//     match(QUOTE);
-//     return cons(INCLUDESTATEMENT,fn,fex);
-// }
-
-
-// Lexeme *
-// optIncludes()
-// {
-//     Lexeme *i;
-//     if (includesPending()) i = includes();
-//     else i = NULL;
-//     return cons(OPTINCLUDES,i,NULL);
-// }
-
-
 Lexeme *
 funcDef()
 {
@@ -230,9 +186,6 @@ mainFunc()
 {
     Lexeme *b;
     match(MAINFUNC);
-    // match(OPAREN);
-    // op = optParamList();
-    // match(CPAREN);
     b = block();
     return cons(MAINFUNC,b,NULL);
 }
@@ -245,7 +198,6 @@ varDef()
     match(VAR);
     vn = match(ID);
     oi = optInit();
-    // match(MONEY);
     return cons(VARDEF,vn,oi);
 }
 
@@ -289,16 +241,6 @@ unaryPending()
 {
     return check(INTEGER) || check(REAL) || check(STRING) || check(ID) || check(LAMBDA);
 }
-
-
-// Lexeme *
-// uminus()
-// {
-//     Lexeme *u;
-//     match(MINUS);
-//     u = unary();
-//     return cons(UMINUS,u,NULL);
-// }
 
 
 Lexeme *

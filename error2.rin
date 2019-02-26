@@ -1,0 +1,16 @@
+? 
+  Matthew Rinne
+  error2.rin
+  cs403 Programming Languages
+?
+
+var x = 20$
+
+main
+{
+    for (i = 0; i<x; i++)
+    {
+        call print(i)$
+        call printNewLine()$
+    }
+}

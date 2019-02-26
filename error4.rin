@@ -1,0 +1,10 @@
+? 
+  Matthew Rinne
+  error4.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    var a = 2 + 'hello, world!'$
+}

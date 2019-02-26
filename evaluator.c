@@ -202,13 +202,7 @@ evalVarDef(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalOptInit(Lexeme *tree, Lexeme *env)
 {
-    if (car(tree) != NULL)
-    {
-        // Lexeme *result = eval(car(tree),env);  // EXPR
-        // printf("result TYPE: %s\n",getLexemeType(result));
-        // return result;
-        return eval(car(tree),env);
-    }
+    if (car(tree) != NULL) return eval(car(tree),env);
     else return NULL;
 }
 
@@ -218,20 +212,6 @@ evalUnary(Lexeme *tree, Lexeme *env)
 {
     return eval(car(tree),env);  // INTEGER or REAL or ...
 }
-
-
-// Lexeme *
-// evalUminus(Lexeme *tree, Lexeme *env)
-// {
-//     if (getLexemeType(car(tree)) == INTEGER) return minusLexemeIval(car(tree),0 - getLexemeIval(car(tree)));
-//     else if (getLexemeType(car(tree)) == REAL) return minusLexemeRval(car(tree),0 - getLexemeRval(car(tree)));
-//     else if (getLexemeType(car(tree)) == ID) return evalUminus(lookup(car(tree),env),env);
-//     else
-//     {
-//         printf("CAN ONLY TAKE THE NEGATIVE OF AN INTEGER OR REAL - LINE %d\n",getLineNum(tree));
-//         exit(1);
-//     }
-// }
 
 
 Lexeme *
@@ -254,11 +234,6 @@ evalExpr(Lexeme *tree, Lexeme *env)
     {
         set_car(car(car(cdr(tree))),car(tree));
         set_cdr(car(car(cdr(tree))),cdr(cdr(tree)));
-        // Lexeme *evalExpr = car(cdr(tree));
-        // printf("evalExpr TYPE: %s\n",getLexemeType(evalExpr));
-        // Lexeme *exprResult = eval(car(cdr(tree)),env);
-        // printf("exprResult TYPE: %s\n",getLexemeType(exprResult));
-        // return exprResult;
         return eval(car(cdr(tree)),env);
     }
     else
@@ -275,104 +250,20 @@ evalExpr(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalOper(Lexeme *tree, Lexeme *env)
 {
-    if (getLexemeType(tree) == PLUS)
-    {
-        // Lexeme *plusResult = evalPlus(tree,env);
-        // printf("operResult TYPE: %s\n",getLexemeType(plusResult));
-        // return plusResult;
-        return evalPlus(tree,env);
-    }
-    else if (getLexemeType(tree) == MINUS)
-    {
-        // Lexeme *operResult = evalMinus(tree,env);
-        // printf("operResult TYPE: %s\n",getLexemeType(operResult));
-        // return operResult;
-        return evalMinus(tree,env);
-    }
-    else if (getLexemeType(tree) == TIMES)
-    {
-        // Lexeme *operResult = evalTimes(tree,env);
-        // printf("operResult TYPE: %s\n",getLexemeType(operResult));
-        // return operResult;
-        return evalTimes(tree,env);
-    }
-    else if (getLexemeType(tree) == DIVIDES)
-    {
-        // Lexeme *operResult = evalDivides(tree,env);
-        // printf("operResult TYPE: %s\n",getLexemeType(operResult));
-        // return operResult;
-        return evalDivides(tree,env);
-    }
-    else if (getLexemeType(tree) == ASSIGN)
-    {
-        // Lexeme *operResult = evalAssign(tree,env);
-        // printf("operResult TYPE: %s\n",getLexemeType(operResult));
-        // return operResult;
-        return evalAssign(tree,env);
-    }
-    else if (getLexemeType(tree) == GREATERTHAN)
-    {
-        // Lexeme *operResults = evalGreaterThan(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalGreaterThan(tree,env);
-    }
-    else if (getLexemeType(tree) == GREATERTHANOREQUAL)
-    {
-        // Lexeme *operResults = evalGreaterThanOrEqual(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalGreaterThanOrEqual(tree,env);
-    }
-    else if (getLexemeType(tree) == LESSTHAN)
-    {
-        // Lexeme *operResults = evalLessThan(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalLessThan(tree,env);
-    }
-    else if (getLexemeType(tree) == LESSTHANOREQUAL)
-    {
-        // Lexeme *operResults = evalLessThanOrEqual(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalLessThanOrEqual(tree,env);
-    }
-    else if (getLexemeType(tree) == EQUALEQUAL)
-    {
-        // Lexeme *operResults = evalEqualEqual(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalEqualEqual(tree,env);
-    }
-    else if (getLexemeType(tree) == NOTEQUALS)
-    {
-        // Lexeme *operResults = evalNotEqual(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalNotEqual(tree,env);
-    }
-    else if (getLexemeType(tree) == MOD) 
-    {
-        // Lexeme *operResults = evalMod(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalMod(tree,env);
-    }
-    else if (getLexemeType(tree) == OROR)
-    {
-        // Lexeme *operResults = evalOrOr(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalOrOr(tree,env);
-    }
-    else if (getLexemeType(tree) == ANDAND)
-    {
-        // Lexeme *operResults = evalAndAnd(tree,env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalAndAnd(tree,env);
-    }
+    if (getLexemeType(tree) == PLUS) return evalPlus(tree,env);
+    else if (getLexemeType(tree) == MINUS) return evalMinus(tree,env);
+    else if (getLexemeType(tree) == TIMES) return evalTimes(tree,env);
+    else if (getLexemeType(tree) == DIVIDES) return evalDivides(tree,env);
+    else if (getLexemeType(tree) == ASSIGN) return evalAssign(tree,env);
+    else if (getLexemeType(tree) == GREATERTHAN) return evalGreaterThan(tree,env);
+    else if (getLexemeType(tree) == GREATERTHANOREQUAL) return evalGreaterThanOrEqual(tree,env);
+    else if (getLexemeType(tree) == LESSTHAN) return evalLessThan(tree,env);
+    else if (getLexemeType(tree) == LESSTHANOREQUAL) return evalLessThanOrEqual(tree,env);
+    else if (getLexemeType(tree) == EQUALEQUAL) return evalEqualEqual(tree,env);
+    else if (getLexemeType(tree) == NOTEQUALS) return evalNotEqual(tree,env);
+    else if (getLexemeType(tree) == MOD) return evalMod(tree,env);
+    else if (getLexemeType(tree) == OROR) return evalOrOr(tree,env);
+    else if (getLexemeType(tree) == ANDAND) return evalAndAnd(tree,env);
     return NULL;
 }
 
@@ -451,16 +342,8 @@ evalDivides(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalAssign(Lexeme *tree, Lexeme *env)
 {
-    // printf("evalAssign car(car(tree)) TYPE: %s\n", getLexemeType(car(car(tree))));
-    // printf("evalAssign car(car(tree)) ID: %s\n", getLexemeID(car(car(tree))));
-    // Lexeme *left = eval(car(car(tree)),env);
-    // printf("left TYPE:%s\n",getLexemeType(left));
-    // printf("%s\n",getLexemeType(cdr(tree)));
     Lexeme *right;
-    if (getLexemeType(cdr(tree)) == FUNCCALL)
-    {
-        right = evalFuncCall(cdr(tree),env);
-    }
+    if (getLexemeType(cdr(tree)) == FUNCCALL) right = evalFuncCall(cdr(tree),env);
     else right = eval(cdr(tree),env);
     return update(env,car(car(tree)),right);
 }
@@ -686,9 +569,14 @@ evalNotEqual(Lexeme *tree, Lexeme *env)
         if (strcmp(getLexemeSval(left),getLexemeSval(right)) != 0) return newLexemeTf(true);
         else return newLexemeTf(false);
     }
+    else if (getLexemeType(left) == BOOL && getLexemeType(right) == BOOL)
+    {
+        if (getLexemeTf(left) == getLexemeTf(right)) return newLexemeTf(false);
+        else return newLexemeTf(true);
+    }
     else
     {
-        printf("CAN ONLY COMPARE STRINGS WITH STRINGS OR NUMBERS WITH NUMBERS -- LINE %d\n", getLineNum(car(tree)));
+        printf("CAN ONLY COMPARE STRINGS WITH STRINGS OR NUMBERS WITH NUMBERS OR BOOL WITH BOOL -- LINE %d\n", getLineNum(car(tree)));
         exit(1);
     }
 }
@@ -715,18 +603,18 @@ evalOrOr(Lexeme *tree, Lexeme *env)
     Lexeme *right = eval(cdr(tree),env);
     if (getLexemeType(left) == INTEGER && getLexemeType(right) == INTEGER)
     {
-        if (getLexemeIval(left) == 1 || getLexemeIval(right) == 1) return newLexemeTf(true);
-        else return newLexemeTf(false);
+        if (getLexemeIval(left) == 0 && getLexemeIval(right) == 0) return newLexemeTf(false);
+        else return newLexemeTf(true);
     }
     else if (getLexemeType(left) == INTEGER && getLexemeType(right) == BOOL)
     {
-        if (getLexemeIval(left) == 1 || getLexemeTf(right) == true) return newLexemeTf(true);
-        else return newLexemeTf(false);
+        if (getLexemeIval(left) == 0 && getLexemeTf(right) == false) return newLexemeTf(false);
+        else return newLexemeTf(true);
     }
     else if (getLexemeType(left) == BOOL && getLexemeType(right) == INTEGER)
     {
-        if (getLexemeTf(left) == true || getLexemeIval(right) == 1) return newLexemeTf(true);
-        else return newLexemeTf(false);
+        if (getLexemeTf(left) == false && getLexemeIval(right) == 0) return newLexemeTf(false);
+        else return newLexemeTf(true);
     }
     else if (getLexemeType(left) == BOOL && getLexemeType(right) == BOOL)
     {
@@ -748,18 +636,18 @@ evalAndAnd(Lexeme *tree, Lexeme *env)
     Lexeme *right = eval(cdr(tree),env);
     if (getLexemeType(left) == INTEGER && getLexemeType(right) == INTEGER)
     {
-        if (getLexemeIval(left) == 1 && getLexemeIval(right) == 1) return newLexemeTf(true);
-        else return newLexemeTf(false);
+        if (getLexemeIval(left) == 0 || getLexemeIval(right) == 0) return newLexemeTf(false);
+        else return newLexemeTf(true);
     }
     else if (getLexemeType(left) == INTEGER && getLexemeType(right) == BOOL)
     {
-        if (getLexemeIval(left) == 1 && getLexemeTf(right) == true) return newLexemeTf(true);
-        else return newLexemeTf(false);
+        if (getLexemeIval(left) == 0 || getLexemeTf(right) == false) return newLexemeTf(false);
+        else return newLexemeTf(true);
     }
     else if (getLexemeType(left) == BOOL && getLexemeType(right) == INTEGER)
     {
-        if (getLexemeTf(left) == true && getLexemeIval(right) == 1) return newLexemeTf(true);
-        else return newLexemeTf(false);
+        if (getLexemeTf(left) == false || getLexemeIval(right) == 0) return newLexemeTf(false);
+        else return newLexemeTf(true);
     }
     else if (getLexemeType(left) == BOOL && getLexemeType(right) == BOOL)
     {
@@ -777,15 +665,7 @@ evalAndAnd(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalDoubleSelfOp(Lexeme *tree, Lexeme *env)
 {
-    // printf("in doubleselfop\n");
-    // printf("tree TYPE: %s\n",getLexemeType(car(tree)));
-    if (getLexemeType(car(tree)) == PLUSPLUS)
-    {
-        // Lexeme *operResults = evalPlusPlus(car(tree),env);
-        // printf("operResult TYPE: %s\n", getLexemeType(operResults));
-        // return operResults;
-        return evalPlusPlus(car(tree),env);
-    }
+    if (getLexemeType(car(tree)) == PLUSPLUS) return evalPlusPlus(car(tree),env);
     else if (getLexemeType(car(tree)) == MINUSMINUS) return evalMinusMinus(car(tree),env);
     else return NULL;
 }
@@ -813,7 +693,7 @@ evalMinusMinus(Lexeme *tree, Lexeme *env)
     else if (getLexemeType(num) == REAL) return newLexemeReal(getLexemeRval(num) - 1,0);
     else
     {
-        printf("CAN ONLY DECREMENT NUMBERS -- LINE %d\n", getLineNum(num));
+        printf("CAN ONLY DECREMENT NUMBERS -- LINE %d\n", getLineNum(tree));
         exit(1);
     }
 }
@@ -823,11 +703,7 @@ Lexeme *
 evalMainFunc(Lexeme *tree, Lexeme *env)
 {
     Lexeme *mainEnv = extend(env,NULL,NULL);
-    // return eval(car(tree),mainEnv);
-    Lexeme *main = eval(car(tree),mainEnv);
-    displayEnv(mainEnv);
-    return main;
-    // return eval(car(tree),mainEnv);
+    return eval(car(tree),mainEnv);
 }
 
 
@@ -845,7 +721,7 @@ evalStatements(Lexeme *tree, Lexeme *env)
     while (tree != NULL)
     {
         result = eval(car(tree),env);
-        if (getLexemeType(result) == RETURNED) return eval(car(tree),env);
+        if (getLexemeType(result) == RETURNED) return eval(car(result),env);
         tree = cdr(tree);
     }
     return result;
@@ -855,12 +731,6 @@ evalStatements(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalStatement(Lexeme *tree, Lexeme *env)
 {
-    // printf("evaluating statement: %s\n", getLexemeType(car(tree)));
-    // printf("defining ID: %s\n",getLexemeID(car(car(tree))));
-    // Lexeme *result = eval(car(tree),env);
-    // displayEnv(env);
-    // return result;
-    // printf("evaluating %s\n", getLexemeType(car(tree)));
     return eval(car(tree),env);
 }
 
@@ -868,35 +738,24 @@ evalStatement(Lexeme *tree, Lexeme *env)
 Lexeme *
 evalReturnStatement(Lexeme *tree, Lexeme *env)
 {
-    // printf("in evalReturnStatement\n");
-    Lexeme *returned = cons(RETURNED,eval(car(tree),env),NULL);
-    return returned;
+    return cons(RETURNED,eval(car(tree),env),NULL);
 }
 
 
 Lexeme *
 evalFuncCall(Lexeme *tree, Lexeme *env)
 {
-    // printf("%s\n",getLexemeType(tree));
-    // printf("%s\n",getLexemeID(car(tree)));
     if (isBuiltIn(getLexemeID(car(tree))))
     {
-        // printf("func is built in\n");
         Lexeme *optArgs = evalOptArgList(cdr(tree),env);
         return evalBuiltIn(car(tree),optArgs);
     }
     Lexeme *closure = eval(car(tree),env);
     Lexeme *optArgs = evalOptArgList(cdr(tree),env);
-    // if (isBuiltIn(closure))
-    // {
-    //     printf("func is built in\n");
-    //     return evalBuiltIn(closure,optArgs);
-    // }
     // else if (getLexemeType(closure) == OCLOSURE) evalConstructor(closure,env);
     Lexeme *staticEnv = car(closure);
     Lexeme *params = car(car(cdr(cdr(closure))));
     Lexeme *localEnv = extend(staticEnv,params,optArgs);
-    // displayEnv(localEnv);
     Lexeme *body = cdr(cdr(cdr(closure)));
     Lexeme *result = eval(body,localEnv);
     if (getLexemeType(result) == RETURNED) return car(result);
@@ -924,11 +783,13 @@ evalIfStatement(Lexeme *tree, Lexeme *env)
 {
     Lexeme *ifEnv = extend(env,NULL,NULL);
     Lexeme *tf = eval(car(tree),ifEnv);
-    if (getLexemeTf(tf) == true)
+    if (getLexemeType(tf) != BOOL)
     {
-        return eval(car(cdr(tree)),env);
+        printf("CONDITIONAL EXPR in IFSTATEMENT MUST BE ONE THAT RETURNS A TYPE BOOL\n");
+        exit(1);
     }
-    return eval(cdr(cdr(tree)),env);
+    if (getLexemeTf(tf) == true) return eval(car(cdr(tree)),env);
+    else return eval(cdr(cdr(tree)),env);
 }
 
 
@@ -973,11 +834,9 @@ evalForLoop(Lexeme *tree, Lexeme *env)
     Lexeme *forEnv = extend(env,NULL,NULL);
     eval(car(tree),forEnv);  //varDef
     Lexeme *cond = eval(car(cdr(tree)),forEnv);
-    // printf("%s\n",getLexemeType(cond));
     while (getLexemeTf(cond) == true)
     {
-        eval(cdr(cdr(cdr(tree))),env);  // block
-        // displayEnv(forEnv);
+        eval(cdr(cdr(cdr(tree))),forEnv);  // block
         eval(car(cdr(cdr(tree))),forEnv);  // expr
         cond = eval(car(cdr(tree)),forEnv);
     }

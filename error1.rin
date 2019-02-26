@@ -1,0 +1,12 @@
+? 
+  Matthew Rinne
+  error1.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    var x = 10$
+    var y = 20$
+    var z = x + y;
+}

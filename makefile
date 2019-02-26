@@ -4,56 +4,114 @@ OBJS = *.o *.pp.*
 make : eval
 	./eval test2.rin
 
-run : test1
+run : error1 error1x error2 error2x error3 error3x error4 error4x error5 error5x arrays arraysx conditionals conditionalsx recursion recursionx iteration iterationx functions functionsx lambda lambdax objects objectsx problem problemx
 
-scanner :
-	gcc $(LOPTS) -c scanner.c lexer.c lexeme.c types.c
-	gcc $(LOPTS) scanner.c lexer.o lexeme.o types.o -o scanner
-
-eval :
+rin :
 	gcc $(LOPTS) -c eval.c lexeme.c lexer.c types.c parser.c evaluator.c environment.c pretty-printing.c
-	gcc $(LOPTS) eval.c lexeme.o lexer.o types.o parser.o evaluator.o environment.o pretty-printing.o -o eval
+	gcc $(LOPTS) eval.c lexeme.o lexer.o types.o parser.o evaluator.o environment.o pretty-printing.o -o rin
 
-pp :
-	gcc $(LOPTS) -c pp.c lexeme.c lexer.c types.c parser.c pretty-printing.c
-	gcc $(LOPTS) pp.c lexeme.o lexer.o types.o parser.o pretty-printing.o -o pp
+error1 :
+	@echo error1.rin contents:
+	@cat error1.rin
 
-recognizer:
-	gcc $(LOPTS) -c recognizer.c lexer.c lexeme.c types.c parser.c
-	gcc $(LOPTS) recognizer.c lexer.o lexeme.o types.o parser.o -o recognizer
+error1x : rin
+	-./rin error1.rin
+	@echo 
 
-test1 : pp
-	@echo Original file:
-	@cat test1.rin
-	@echo Pretty Printed version of the original:
-	@./pp test1.rin > test1.pp.1
-	@cat test1.pp.1
-	@echo Pretty Printed version of the pretty printed version:
-	@./pp test1.pp.1 > test1.pp.2
-	@cat test1.pp.2
-	diff -s -q test1.pp.1 test1.pp.2
+error2 :
+	@echo error2.rin contents:
+	@cat error2.rin
 
-test2 : pp
-	@echo Original file:
-	@cat test2.rin
-	@echo Pretty Printed version of the original:
-	@./pp test2.rin > test2.pp.1
-	@cat test2.pp.1
-	@echo Pretty Printed version of the pretty printed version:
-	@./pp test2.pp.1 > test2.pp.2
-	@cat test2.pp.2
-	diff -s -q test2.pp.1 test2.pp.2
+error2x : rin
+	-./rin error2.rin
+	@echo
 
-test3 : pp
-	@echo Original file:
-	@cat test3.rin
-	@echo Pretty Printed version of the original:
-	@./pp test3.rin > test3.pp.1
-	@cat test3.pp.1
-	@echo Pretty Printed version of the pretty printed version:
-	@./pp test3.pp.1 > test3.pp.2
-	@cat test3.pp.2
-	diff -s -q test3.pp.1 test3.pp.2
+error3 :
+	@echo error3.rin contents:
+	@cat error3.rin
+
+error3x : rin
+	-./rin error3.rin
+	@echo
+
+error4 :
+	@echo error4.rin contents:
+	@cat error4.rin
+
+error4x : rin
+	-./rin error4.rin
+	@echo
+
+error5 :
+	@echo error5.rin contents:
+	@cat error5.rin
+
+error5x : rin
+	-./rin error5.rin
+	@echo
+
+arrays :
+	@echo arrays.rin content:
+	@cat arrays.rin
+
+arraysx : rin
+	./rin arrays.rin
+	@echo
+
+conditionals :
+	@echo conditionals.rin content:
+	@cat conditionals.rin
+
+conditionalsx : rin
+	./rin conditionals.rin
+	@echo
+
+recursion :
+	@echo recursion.rin content:
+	@cat recursion.rin
+
+recursionx : rin
+	./rin recursion.rin
+	@echo
+
+iteration :
+	@echo iteration.rin contents:
+	@cat iteration.rin
+
+iterationx : rin
+	./rin iteration.rin
+	@echo
+
+functions :
+	@echo functions.rin content:
+	@cat functions.rin
+
+functionsx : rin
+	./rin functions.rin
+	@echo
+
+lambda :
+	@echo lambda.rin contents:
+	@cat lambda.rin
+
+lambdax : rin
+	./rin lambda.rin
+	@echo
+
+objects :
+	@echo COULD NOT GET OBJECTS TO WORK
+	@echo
+
+objectsx :
+	@echo COULD NOT GET OBJECTS TO WORK
+	@echo
+
+problem :
+	@echo problem.rin contents:
+	@cat problem.rin
+
+problemx : rin
+	./rin problem.rin ints.txt
 
 clean :
-	rm -f $(OBJS) pp eval scanner
+	rm -f $(OBJS) rin

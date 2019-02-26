@@ -1,0 +1,28 @@
+? 
+  Matthew Rinne
+  lambda.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    func f(var x)
+    {
+        lambda(var y){x + y$}$
+    }
+
+    var a = call f(3)$
+    var b = call f(11)$
+
+    call print('a(5) is ')$
+    call print(call a(5))$
+    call printNewLine()$
+
+    call print('b(6) is ')$
+    call print(call b(6))$
+    call printNewLine()$
+
+    call print('a(10) is ')$
+    call print(call a(10))$
+    call printNewLine()$
+}

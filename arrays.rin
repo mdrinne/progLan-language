@@ -1,0 +1,44 @@
+? 
+  Matthew Rinne
+  arrays.rin
+  cs403 Programming Languages
+?
+
+main
+{
+    call print('creating array of size 5')$
+    call printNewLine()$
+    var arr = call newArray(5)$
+
+    call print('setting array at index 0 to 0')$
+    call printNewLine()$
+    call setArray(arr,0,0)$
+
+    call print('getting val at index 0')$
+    call printNewLine()$
+    var ind0 = call getArray(arr,0)$
+
+    call print('val at index 0 = ')$
+    call print(ind0)$
+    call printNewLine()$
+
+    call print('setting array at index 4 to 4')$
+    call printNewLine()$
+    call setArray(arr,4,4)$
+
+    call print('getting val at index 4')$
+    call printNewLine()$
+    var ind4 = call getArray(arr,4)$
+
+    call print('val at index 4 = ')$
+    call print(ind4)$
+    call printNewLine()$
+
+    call print('getting val at index 2 (which is empty)')$
+    call printNewLine()$
+    var ind2 = call getArray(arr,2)$
+
+    call print('val at index 2 = ')$
+    call print(ind2)$
+    call printNewLine()$
+}
